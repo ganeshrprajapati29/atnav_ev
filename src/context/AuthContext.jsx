@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
       } else if (!data.serviceActivated) {
         navigate('/payment');
       } else {
-        navigate('/dashboard');
+        navigate('/user');
       }
     } catch (error) {
       toast.error(error.response?.data?.message || error.message || 'Login failed');
@@ -62,8 +62,8 @@ export const AuthProvider = ({ children }) => {
       const data = await authService.register(userData);
       tokenService.setToken(data.token);
       setUser(data);
-      // Show registration success popup with user ID
-      setRegistrationSuccess({ userId: data.uniqueId });
+      // Navigate to payment since payment is required
+      navigate('/payment');
     } catch (error) {
       toast.error(error.response?.data?.message || 'Registration failed');
       throw error;
@@ -83,7 +83,7 @@ export const AuthProvider = ({ children }) => {
 
   const closeRegistrationSuccessPopupGoHome = () => {
     setRegistrationSuccess(null);
-    navigate('/dashboard');
+    navigate('/user');
   };
 
   const closeRegistrationSuccessPopupMakePayment = () => {

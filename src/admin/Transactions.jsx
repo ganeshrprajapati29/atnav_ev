@@ -53,8 +53,11 @@ const Transactions = () => {
               <thead>
                 <tr className="bg-gray-50 text-left">
                   <th className="px-4 py-3 font-medium text-gray-700">Transaction ID</th>
-                  <th className="px-4 py-3 font-medium text-gray-700">Withdrawal</th>
-                  <th className="px-4 py-3 font-medium text-gray-700">Amount</th>
+                  <th className="px-4 py-3 font-medium text-gray-700">User Name</th>
+                  <th className="px-4 py-3 font-medium text-gray-700">Email</th>
+                  <th className="px-4 py-3 font-medium text-gray-700">Unique ID</th>
+                  <th className="px-4 py-3 font-medium text-gray-700">Withdrawal Amount</th>
+                  <th className="px-4 py-3 font-medium text-gray-700">Transaction Amount</th>
                   <th className="px-4 py-3 font-medium text-gray-700">Status</th>
                   <th className="px-4 py-3 font-medium text-gray-700">Payout ID</th>
                   <th className="px-4 py-3 font-medium text-gray-700">Date</th>
@@ -70,13 +73,27 @@ const Transactions = () => {
                       <p className="font-semibold text-gray-900">{transaction._id?.slice(-8)}</p>
                     </td>
 
-                    {/* Withdrawal */}
+                    {/* User Name */}
                     <td className="px-4 py-3">
-                      <p>{transaction.withdrawal?.user?.name}</p>
-                      <p className="text-sm text-gray-600">₹{transaction.withdrawal?.amount}</p>
+                      <p>{transaction.user?.name || transaction.withdrawal?.user?.name || 'N/A'}</p>
                     </td>
 
-                    {/* Amount */}
+                    {/* Email */}
+                    <td className="px-4 py-3">
+                      <p className="text-sm">{transaction.user?.email || transaction.withdrawal?.user?.email || 'N/A'}</p>
+                    </td>
+
+                    {/* Unique ID */}
+                    <td className="px-4 py-3">
+                      <p className="text-sm">{transaction.user?.uniqueId || transaction.withdrawal?.user?.uniqueId || 'N/A'}</p>
+                    </td>
+
+                    {/* Withdrawal Amount */}
+                    <td className="px-4 py-3">
+                      <span className="font-semibold">₹{transaction.withdrawal?.amount || transaction.amount}</span>
+                    </td>
+
+                    {/* Transaction Amount */}
                     <td className="px-4 py-3">
                       <span className="font-semibold">₹{transaction.amount}</span>
                     </td>

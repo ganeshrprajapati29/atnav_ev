@@ -1,15 +1,25 @@
 import api from '../utils/api';
 
 const adminService = {
-  // Get all users
-  getUsers: async () => {
+  // Get all users with pagination
+  getUsers: async (page = 1, limit = 12) => {
     try {
-      const data = await api.get('/admin/users');
-      return Array.isArray(data) ? data : [];
+      const response = await api.get(`/admin/users?page=${page}&limit=${limit}`);
+      return response || { users: [], pagination: {} };
     } catch (err) {
       console.error("GET USERS ERROR:", err);
-      return [];
+      return { users: [], pagination: {} };
     }
+  },
+
+  // Create new user
+  createUser: async (userData) => {
+    return await api.post('/admin/users', userData);
+  },
+
+  // Send coin certificate to user
+  sendCoinCertificate: async (userId) => {
+    return await api.post(`/admin/users/${userId}/send-certificate`);
   },
 
   // Update user
@@ -106,6 +116,18 @@ const adminService = {
     link.click();
     link.remove();
     window.URL.revokeObjectURL(url);
+  },
+
+  // Get activity logs
+  getActivityLogs: async (params = {}) => {
+    try {
+      const queryString = new URLSearchParams(params).toString();
+      const data = await api.get(`/admin/activity-logs${queryString ? `?${queryString}` : ''}`);
+      return data || { logs: [], pagination: {}, filters: {} };
+    } catch (err) {
+      console.error("GET ACTIVITY LOGS ERROR:", err);
+      return { logs: [], pagination: {}, filters: {} };
+    }
   }
 };
 

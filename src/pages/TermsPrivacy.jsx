@@ -1,8 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { HiDocumentText as FileText, HiShieldCheck as Shield, HiScale as Scale } from 'react-icons/hi2';
 
 const TermsPrivacy = () => {
+  const [searchParams] = useSearchParams();
   const [activeSection, setActiveSection] = useState('terms');
+
+  useEffect(() => {
+    const section = searchParams.get('section');
+    if (section && ['terms', 'privacy', 'cookies'].includes(section)) {
+      setActiveSection(section);
+    }
+  }, [searchParams]);
 
   const sections = [
     { id: 'terms', title: 'Terms of Service', icon: FileText },

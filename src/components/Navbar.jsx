@@ -42,21 +42,21 @@ const Navbar = () => {
               </div>
             ) : (
               <img
-                src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/5359dd66658607.5b1e099b73523.gif"
+                src="https://i.ibb.co/Xr3fbTmd/IMG-20260116-WA0011.jpg"
                 className="w-14 h-14 rounded-xl object-cover border border-emerald-200 shadow-sm group-hover:scale-105 transition"
                 alt="Logo"
               />
             )}
 
             <span className="text-2xl font-extrabold bg-gradient-to-r from-emerald-600 to-emerald-800 bg-clip-text text-transparent hidden sm:inline">
-              Atvan Ev
+              Atvan Coin
             </span>
           </Link>
 
           {/* DESKTOP LINKS */}
           <div className="hidden md:flex items-center gap-8">
 
-            <Link to="/dashboard" className="nav-link">
+            {/* <Link to="/user/dashboard" className="nav-link">
               <LayoutDashboard size={18} /> Dashboard
             </Link>
 
@@ -66,7 +66,7 @@ const Navbar = () => {
 
             <Link to="/leaderboard" className="nav-link">
               <Trophy size={18} /> Leaderboard
-            </Link>
+            </Link> */}
 
             {user?.isAdmin && (
               <Link to="/admin" className="nav-link">
@@ -101,7 +101,7 @@ const Navbar = () => {
                   </div>
 
                   <Link
-                    to="/profile"
+                    to="/user/profile"
                     className="w-11 h-11 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-md hover:scale-105 transition"
                   >
                     <User size={20} className="text-white" />
@@ -139,7 +139,7 @@ const Navbar = () => {
         {mobileMenuOpen && (
           <div className="md:hidden bg-white border-t border-emerald-200 shadow-inner py-4 space-y-3 rounded-b-xl">
 
-            <Link to="/dashboard" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>
+            {/* <Link to="/user/dashboard" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>
               Dashboard
             </Link>
 
@@ -149,7 +149,7 @@ const Navbar = () => {
 
             <Link to="/leaderboard" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>
               Leaderboard
-            </Link>
+            </Link> */}
 
             {user?.isAdmin && (
               <Link to="/admin" className="mobile-link" onClick={() => setMobileMenuOpen(false)}>

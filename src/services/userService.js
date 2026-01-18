@@ -4,6 +4,10 @@ export const getLeaderboard = async () => {
   return api.get('/users/leaderboard');
 };
 
+export const updateProfile = async (profileData) => {
+  return api.put('/users/profile', profileData);
+};
+
 export const updateBankDetails = async (bankData) => {
   return api.put('/users/bank-details', bankData);
 };
@@ -18,4 +22,12 @@ export const getDashboard = async () => {
 
 export const transferCoins = async (recipientId, amount) => {
   return api.post('/users/transfer-coins', { recipientId, amount });
+};
+
+export const getUserByUniqueId = async (uniqueId) => {
+  return api.get(`/users/by-unique-id/${uniqueId}`);
+};
+
+export const payToUser = async (recipientId, amount, note) => {
+  return api.post('/users/pay-to-user', { recipientId, amount, note });
 };

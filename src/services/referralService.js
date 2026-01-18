@@ -1,18 +1,36 @@
 import api from '../utils/api';
 
+/**
+ * ===============================
+ * Generate referral code
+ * ===============================
+ */
 const generateReferralCode = async () => {
-  const response = await api.post('/referrals/generate-code');
-  return response.data;
+  return api.post('/referrals/generate-code');
 };
 
+/**
+ * ===============================
+ * Get referral stats
+ * ===============================
+ */
 const getReferralStats = async () => {
-  const response = await api.get('/referrals/stats');
-  return response.data;
+  return api.get('/referrals/stats');
 };
 
+/**
+ * ===============================
+ * Admin: get all referrals
+ * ===============================
+ */
 const getAllReferrals = async (page = 1, limit = 10) => {
-  const response = await api.get(`/referrals/all?page=${page}&limit=${limit}`);
-  return response.data;
+  return api.get(
+    `/referrals/all?page=${page}&limit=${limit}`
+  );
 };
 
-export { generateReferralCode, getReferralStats, getAllReferrals };
+export {
+  generateReferralCode,
+  getReferralStats,
+  getAllReferrals
+};

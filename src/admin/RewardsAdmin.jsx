@@ -65,7 +65,7 @@ const RewardsAdmin = () => {
           <div className="bg-white rounded-xl shadow-md border-l-4 border-yellow-500 p-6 hover:shadow-lg transition">
             <div className="flex justify-between items-center">
               <div>
-                <p className="text-sm text-gray-600 font-medium">Total Coins Earned</p>
+                <p className="text-sm text-gray-600 font-medium">Total Wallet Coins Earned</p>
                 <p className="text-4xl font-bold text-yellow-500 mt-3">{stats.totalCoinsEarned || 0}</p>
               </div>
               <div className="text-3xl">💰</div>

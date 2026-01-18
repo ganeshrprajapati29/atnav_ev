@@ -61,7 +61,7 @@ const Analytics = () => {
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 font-medium">Total Coins</p>
+                <p className="text-sm text-gray-600 font-medium">Total Wallet Coins</p>
                 <p className="text-3xl font-bold text-blue-600 mt-2">{analytics?.totalCoins || 0}</p>
               </div>
               <FaCoins className="text-blue-600 text-2xl" />

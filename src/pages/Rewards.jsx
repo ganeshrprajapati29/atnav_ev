@@ -72,7 +72,7 @@ const Rewards = () => {
           <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow border-l-4 border-emerald-600 p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 font-medium">Total Coins Earned</p>
+                <p className="text-sm text-gray-600 font-medium">Total Wallet Coins Earned</p>
                 <p className="text-4xl font-bold text-emerald-600 mt-3">{user?.totalCoins || 0}</p>
                 <div className="flex items-center gap-1 mt-2 text-emerald-600 text-sm">
                   <TrendingUp size={16} />

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { FaEdit, FaBan, FaCheck } from 'react-icons/fa';
+import { FaEdit, FaBan, FaCheck, FaCertificate } from 'react-icons/fa';
 import adminService from '../services/adminService';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
+  const [pagination, setPagination] = useState({});
   const [loading, setLoading] = useState(true);
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -16,11 +17,13 @@ const Users = () => {
       setLoading(true);
       const data = await adminService.getUsers();
 
-      //  FIX: Prevent "undefined.map" error
-      setUsers(Array.isArray(data) ? data : []);
+      // FIX: Properly handle the response object
+      setUsers(data.users || []);
+      setPagination(data.pagination || {});
     } catch (error) {
       console.error('Failed to fetch users:', error);
       setUsers([]); // fallback
+      setPagination({});
     } finally {
       setLoading(false);
     }
@@ -57,6 +60,17 @@ const Users = () => {
         alert('User unblocked successfully!');
       } catch (error) {
         alert('Failed to unblock user');
+      }
+    }
+  };
+
+  const handleSendCertificate = async (userId, userName) => {
+    if (window.confirm(`Are you sure you want to send a coin certificate to ${userName}?`)) {
+      try {
+        await adminService.sendCoinCertificate(userId);
+        alert('Coin certificate sent successfully!');
+      } catch (error) {
+        alert('Failed to send certificate');
       }
     }
   };
@@ -121,6 +135,7 @@ const Users = () => {
                     <td className="px-4 py-3">
                       <p className="font-medium">DOB: {user.dob ? new Date(user.dob).toLocaleDateString('en-IN') : 'N/A'}</p>
                       <p className="text-sm text-gray-600">Gender: {user.gender || 'N/A'}</p>
+                      {user.fatherName && <p className="text-sm text-gray-600">Father: {user.fatherName}</p>}
                     </td>
 
                     {/* Contact & Address */}
@@ -133,19 +148,15 @@ const Users = () => {
                     {/* Documents */}
                     <td className="px-4 py-3">
                       <div className="space-y-1">
-                        {user.aadhaarUrl && (
-                          <a href={user.aadhaarUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-sm block">
-                            Aadhaar
-                          </a>
-                        )}
-                        {user.pancardUrl && (
-                          <a href={user.pancardUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-sm block">
-                            PAN Card
-                          </a>
-                        )}
+                        <p className="text-sm">
+                          <span className="font-medium">Aadhaar:</span> {user.aadhaarNumber || 'Not provided'}
+                        </p>
+                        <p className="text-sm">
+                          <span className="font-medium">PAN:</span> {user.panNumber || 'Not provided'}
+                        </p>
                         {user.photoUrl && (
                           <a href={user.photoUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-sm block">
-                            Photo
+                            View Photo
                           </a>
                         )}
                       </div>
@@ -223,13 +234,22 @@ const Users = () => {
                         <button
                           onClick={() => setSelectedUser(user)}
                           className="text-blue-600 hover:text-blue-800 text-lg"
+                          title="Edit User"
                         >
                           <FaEdit />
+                        </button>
+                        <button
+                          onClick={() => handleSendCertificate(user._id, user.name)}
+                          className="text-purple-600 hover:text-purple-800 text-lg"
+                          title="Send Coin Certificate"
+                        >
+                          <FaCertificate />
                         </button>
                         {user.blocked ? (
                           <button
                             onClick={() => handleUnblockUser(user._id)}
                             className="text-green-600 hover:text-green-800 text-lg"
+                            title="Unblock User"
                           >
                             <FaCheck />
                           </button>
@@ -237,6 +257,7 @@ const Users = () => {
                           <button
                             onClick={() => handleBlockUser(user._id)}
                             className="text-red-600 hover:text-red-800 text-lg"
+                            title="Block User"
                           >
                             <FaBan />
                           </button>
@@ -275,7 +296,7 @@ const Users = () => {
               >
 
                 <div>
-                  <label className="text-gray-700 font-medium">Total Coins</label>
+                  <label className="text-gray-700 font-medium">Total Wallet Coins</label>
                   <input
                     type="number"
                     name="totalCoins"

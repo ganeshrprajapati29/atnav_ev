@@ -1,7 +1,11 @@
 import api from '../utils/api';
 
 export const register = async (userData) => {
-  return api.post('/auth/register', userData);
+  return api.post('/auth/register', userData, {
+    headers: {
+      'Content-Type': undefined
+    }
+  });
 };
 
 export const login = async (email, password) => {

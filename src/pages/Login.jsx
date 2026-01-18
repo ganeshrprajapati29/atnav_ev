@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import {
-  HiEye,
-  HiEyeSlash,
-  HiEnvelope,
-  HiLockClosed,
-  HiArrowRightOnRectangle,
-  HiExclamationCircle
-} from 'react-icons/hi2';
+  Eye,
+  EyeOff,
+  Mail,
+  Lock,
+  LogIn,
+  AlertCircle
+} from 'lucide-react';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -62,13 +62,15 @@ const Login = () => {
         {/* Logo Section */}
         <div className="text-center mb-10">
           <div className="inline-block mb-4 transform hover:scale-110 transition-all">
-            <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-3xl flex items-center justify-center shadow-2xl backdrop-blur-xl">
-              <span className="text-4xl">💰</span>
-            </div>
+            <img
+              src="https://i.ibb.co/Xr3fbTmd/IMG-20260116-WA0011.jpg"
+              alt="Logo"
+              className="w-20 h-20 rounded-3xl object-cover shadow-2xl"
+            />
           </div>
 
           <h1 className="text-4xl font-extrabold text-emerald-700 tracking-tight drop-shadow-lg">
-            atvanev coins
+            atvan coin
           </h1>
           <p className="text-gray-700 mt-1">Earn Coins. Redeem Rewards. Login Now!</p>
         </div>
@@ -79,7 +81,7 @@ const Login = () => {
           {/* Error */}
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3 shadow">
-              <HiExclamationCircle className="text-red-600 flex-shrink-0 mt-0.5" size={22} />
+              <AlertCircle className="text-red-600 flex-shrink-0 mt-0.5" size={22} />
               <p className="text-red-700 font-semibold text-sm">{error}</p>
             </div>
           )}
@@ -93,7 +95,7 @@ const Login = () => {
                 Email Address
               </label>
               <div className="relative">
-                <HiEnvelope className="absolute left-3 top-3.5 text-emerald-600" size={22} />
+                <Mail className="absolute left-3 top-3.5 text-emerald-600" size={22} />
                 <input
                   id="email"
                   name="email"
@@ -113,7 +115,7 @@ const Login = () => {
                 Password
               </label>
               <div className="relative">
-                <HiLockClosed className="absolute left-3 top-3.5 text-emerald-600" size={22} />
+                <Lock className="absolute left-3 top-3.5 text-emerald-600" size={22} />
                 <input
                   id="password"
                   name="password"
@@ -130,7 +132,7 @@ const Login = () => {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-3.5 text-gray-600 hover:text-emerald-700"
                 >
-                  {showPassword ? <HiEyeSlash size={22} /> : <HiEye size={22} />}
+                  {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
                 </button>
               </div>
             </div>
@@ -160,7 +162,7 @@ const Login = () => {
                 </>
               ) : (
                 <>
-                  <HiArrowRightOnRectangle size={22} />
+                  <LogIn size={22} />
                   <span>Login</span>
                 </>
               )}
@@ -174,7 +176,7 @@ const Login = () => {
             </div>
             <div className="relative flex justify-center text-sm">
               <span className="px-3 bg-white/60 backdrop-blur-md text-gray-600 font-medium">
-                New to atvanev coins?
+                New to atvan coin?
               </span>
             </div>
           </div>
@@ -192,8 +194,8 @@ const Login = () => {
         {/* Terms */}
         <p className="mt-6 text-center text-gray-700 text-sm drop-shadow">
           By continuing, you agree to our{' '}
-          <Link to="/terms" className="text-emerald-700 font-semibold">Terms</Link> &
-          <Link to="/privacy" className="text-emerald-700 font-semibold"> Privacy Policy</Link>
+          <Link to="/terms-privacy?section=terms" className="text-emerald-700 font-semibold">Terms</Link> &
+          <Link to="/terms-privacy?section=privacy" className="text-emerald-700 font-semibold"> Privacy Policy</Link>
         </p>
 
       </div>

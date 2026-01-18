@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import {
   Eye,
@@ -9,37 +9,38 @@ import {
   User,
   Phone,
   AlertCircle,
-  CheckCircle,
-  IdCard,
-  Image as ImageIcon
+  CheckCircle
 } from "lucide-react";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: "",
+    fatherName: "",
     email: "",
     phone: "",
     password: "",
     confirmPassword: "",
-    address: "",
     dob: "",
     gender: "",
     referralCode: "",
   });
 
-  const [files, setFiles] = useState({
-    aadhaar: null,
-    pancard: null,
-    photo: null,
-  });
+
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   const { register, loading } = useAuth();
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const ref = searchParams.get('ref');
+    if (ref) {
+      setFormData(prev => ({ ...prev, referralCode: ref }));
+    }
+  }, [searchParams]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,15 +54,9 @@ const Signup = () => {
       !formData.email ||
       !formData.phone ||
       !formData.password ||
-      !formData.confirmPassword ||
-      !formData.address
+      !formData.confirmPassword
     ) {
-      setError("Please fill in all fields");
-      return false;
-    }
-
-    if (!files.aadhaar || !files.pancard || !files.photo) {
-      setError("Please upload all required documents");
+      setError("Please fill in all required fields");
       return false;
     }
 
@@ -94,7 +89,6 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    setSuccess("");
 
     if (!validateForm()) return;
 
@@ -102,26 +96,8 @@ const Signup = () => {
       const data = new FormData();
       Object.entries(formData).forEach(([key, val]) => data.append(key, val));
 
-      data.append("aadhaar", files.aadhaar);
-      data.append("pancard", files.pancard);
-      data.append("photo", files.photo);
-
       await register(data);
-      setSuccess("Account created successfully! Please proceed to payment.");
-
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        password: "",
-        confirmPassword: "",
-        address: "",
-        dob: "",
-        gender: "",
-        referralCode: "",
-      });
-
-      setFiles({ aadhaar: null, pancard: null, photo: null });
+      // Registration successful, will navigate to payment
     } catch (err) {
       setError(err.message || "Registration failed. Please try again.");
     }
@@ -150,9 +126,11 @@ const Signup = () => {
         
         {/* HEADER */}
         <div className="text-center mb-10">
-          <div className="w-20 h-20 mx-auto bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-3xl flex items-center justify-center shadow-2xl text-4xl">
-            💰
-          </div>
+          <img
+            src="https://i.ibb.co/Xr3fbTmd/IMG-20260116-WA0011.jpg"
+            alt="Logo"
+            className="w-20 h-20 mx-auto rounded-3xl object-cover shadow-2xl"
+          />
           <h1 className="text-4xl font-extrabold text-emerald-700 mt-4">Create Account</h1>
           <p className="text-gray-700">Join the platform & start earning rewards</p>
         </div>
@@ -160,13 +138,7 @@ const Signup = () => {
         {/* FORM CARD */}
         <div className="bg-white/40 backdrop-blur-xl border border-white/60 shadow-2xl rounded-3xl p-8">
 
-          {/* SUCCESS */}
-          {success && (
-            <div className="mb-6 p-4 bg-emerald-50 border border-emerald-200 rounded-lg flex gap-3 items-start">
-              <CheckCircle size={22} className="text-emerald-600" />
-              <p className="text-emerald-700 text-sm">{success}</p>
-            </div>
-          )}
+
 
           {/* ERROR */}
           {error && (
@@ -189,11 +161,26 @@ const Signup = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  placeholder="John Doe"
+                  placeholder="Your Name"
                   className="w-full pl-11 pr-4 py-3 rounded-xl bg-white/80 border"
                 />
               </div>
             </div>
+
+            {/* FATHER NAME
+            <div>
+              <label className="font-semibold text-gray-900 text-sm">Father Name</label>
+              <div className="relative mt-1">
+                <User className="absolute left-3 top-3.5 text-emerald-600" size={20} />
+                <input
+                  name="fatherName"
+                  value={formData.fatherName}
+                  onChange={handleChange}
+                  placeholder="Father's Name"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-white/80 border"
+                />
+              </div>
+            </div> */}
 
             {/* EMAIL */}
             <div>
@@ -206,7 +193,7 @@ const Signup = () => {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="you@example.com"
+                  placeholder="you@gmail.com"
                   className="w-full pl-11 pr-4 py-3 rounded-xl bg-white/80 border"
                 />
               </div>
@@ -222,7 +209,7 @@ const Signup = () => {
                   required
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="+91 98765 43210"
+                  placeholder="+91 9953701057"
                   className="w-full pl-11 pr-4 py-3 rounded-xl bg-white/80 border"
                 />
               </div>
@@ -270,67 +257,7 @@ const Signup = () => {
               </select>
             </div>
 
-            {/* ADDRESS (FULL WIDTH) */}
-            <div className="md:col-span-2">
-              <label className="font-semibold text-gray-900 text-sm">Address</label>
-              <textarea
-                name="address"
-                required
-                rows="3"
-                value={formData.address}
-                onChange={handleChange}
-                placeholder="Full address"
-                className="w-full px-4 py-3 mt-1 rounded-xl bg-white/80 border"
-              ></textarea>
-            </div>
 
-            {/* AADHAAR */}
-            <div>
-              <label className="font-semibold text-gray-900 text-sm flex items-center gap-2">
-                <IdCard size={18} /> Aadhaar
-              </label>
-              <input
-                type="file"
-                accept="image/*"
-                required
-                onChange={(e) =>
-                  setFiles((p) => ({ ...p, aadhaar: e.target.files[0] }))
-                }
-                className="w-full px-4 py-3 mt-1 rounded-xl bg-white/80 border"
-              />
-            </div>
-
-            {/* PAN */}
-            <div>
-              <label className="font-semibold text-gray-900 text-sm flex items-center gap-2">
-                <IdCard size={18} /> PAN Card
-              </label>
-              <input
-                type="file"
-                accept="image/*"
-                required
-                onChange={(e) =>
-                  setFiles((p) => ({ ...p, pancard: e.target.files[0] }))
-                }
-                className="w-full px-4 py-3 mt-1 rounded-xl bg-white/80 border"
-              />
-            </div>
-
-            {/* PHOTO (FULL WIDTH) */}
-            <div className="md:col-span-2">
-              <label className="font-semibold text-gray-900 text-sm flex items-center gap-2">
-                <ImageIcon size={18} /> Photo
-              </label>
-              <input
-                type="file"
-                accept="image/*"
-                required
-                onChange={(e) =>
-                  setFiles((p) => ({ ...p, photo: e.target.files[0] }))
-                }
-                className="w-full px-4 py-3 mt-1 rounded-xl bg-white/80 border"
-              />
-            </div>
 
             {/* PASSWORD */}
             <div>
@@ -457,11 +384,11 @@ const Signup = () => {
         {/* FOOTER */}
         <p className="text-center mt-6 text-gray-700 text-sm">
           By creating an account, you agree to our{" "}
-          <Link to="/terms" className="text-emerald-700 font-bold">
+          <Link to="/terms-privacy?section=terms" className="text-emerald-700 font-bold">
             Terms
           </Link>{" "}
           &{" "}
-          <Link to="/privacy" className="text-emerald-700 font-bold">
+          <Link to="/terms-privacy?section=privacy" className="text-emerald-700 font-bold">
             Privacy Policy
           </Link>
         </p>

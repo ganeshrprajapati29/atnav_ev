@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaFileAlt, FaDownload, FaSearch, FaFilter, FaEye } from 'react-icons/fa';
+import adminService from '../services/adminService';
 
 const Logs = () => {
   const [logs, setLogs] = useState([]);
@@ -8,6 +9,16 @@ const Logs = () => {
   const [filterType, setFilterType] = useState('all');
   const [selectedLog, setSelectedLog] = useState(null);
 
+  const mapSeverityToLevel = (severity) => {
+    switch (severity) {
+      case 'low': return 'INFO';
+      case 'medium': return 'WARN';
+      case 'high': return 'ERROR';
+      case 'critical': return 'ERROR';
+      default: return 'INFO';
+    }
+  };
+
   useEffect(() => {
     fetchLogs();
   }, []);
@@ -15,44 +26,21 @@ const Logs = () => {
   const fetchLogs = async () => {
     try {
       setLoading(true);
-      // Mock data for demonstration
-      const mockLogs = [
-        {
-          id: 1,
-          timestamp: new Date(Date.now() - 1000 * 60 * 5).toISOString(),
-          level: 'INFO',
-          message: 'User login successful',
-          user: 'john@example.com',
-          ip: '192.168.1.100'
-        },
-        {
-          id: 2,
-          timestamp: new Date(Date.now() - 1000 * 60 * 15).toISOString(),
-          level: 'ERROR',
-          message: 'Failed withdrawal attempt',
-          user: 'jane@example.com',
-          ip: '192.168.1.101'
-        },
-        {
-          id: 3,
-          timestamp: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
-          level: 'WARN',
-          message: 'Invalid API request',
-          user: 'admin@example.com',
-          ip: '192.168.1.102'
-        },
-        {
-          id: 4,
-          timestamp: new Date(Date.now() - 1000 * 60 * 45).toISOString(),
-          level: 'INFO',
-          message: 'Service redeemed successfully',
-          user: 'bob@example.com',
-          ip: '192.168.1.103'
-        }
-      ];
-      setLogs(mockLogs);
+      const data = await adminService.getActivityLogs();
+      const mappedLogs = data.logs.map(log => ({
+        id: log._id,
+        timestamp: log.timestamp,
+        severity: log.severity,
+        level: mapSeverityToLevel(log.severity),
+        message: log.description,
+        user: log.user?.email || log.user?.name || 'Unknown',
+        ip: log.location?.ip || 'N/A',
+        originalLog: log
+      }));
+      setLogs(mappedLogs);
     } catch (error) {
       console.error('Failed to fetch logs:', error);
+      setLogs([]);
     } finally {
       setLoading(false);
     }
@@ -61,7 +49,7 @@ const Logs = () => {
   const filteredLogs = logs.filter(log => {
     const matchesSearch = log.message.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          log.user.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = filterType === 'all' || log.level.toLowerCase() === filterType;
+    const matchesFilter = filterType === 'all' || log.severity === filterType;
     return matchesSearch && matchesFilter;
   });
 
@@ -153,9 +141,10 @@ const Logs = () => {
                 className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
               >
                 <option value="all">All Levels</option>
-                <option value="error">Errors</option>
-                <option value="warn">Warnings</option>
-                <option value="info">Info</option>
+                <option value="low">Info</option>
+                <option value="medium">Warning</option>
+                <option value="high">Error</option>
+                <option value="critical">Critical</option>
               </select>
             </div>
           </div>
