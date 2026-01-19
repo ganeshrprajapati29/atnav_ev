@@ -12,7 +12,7 @@ import {
   HiUserPlus
 } from 'react-icons/hi2';
 
-import { LogOut, ReceiptText, BarChart3, Menu, X } from 'lucide-react';
+import { LogOut, BarChart3, Menu, X } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 
 const AdminLayout = () => {
@@ -26,7 +26,7 @@ const AdminLayout = () => {
     { path: '/admin/add-user', label: 'Add User', icon: HiUserPlus },
     { path: '/admin/user-details', label: 'User Details', icon: HiIdentification },
     { path: '/admin/kyc', label: 'KYC Management', icon: HiShieldCheck },
-    { path: '/admin/transactions', label: 'Transactions', icon: ReceiptText },
+    { path: '/admin/transactions', label: 'Transactions', icon: HiDocumentText },
     { path: '/admin/rewards', label: 'Rewards', icon: HiBolt },
     { path: '/admin/analytics', label: 'Analytics', icon: HiChartBar },
     { path: '/admin/reports', label: 'Reports', icon: BarChart3 },

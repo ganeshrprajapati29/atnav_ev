@@ -16,7 +16,7 @@ import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import Rewards from './pages/Rewards';
-import Services from './pages/Services';
+// import Services from './pages/Services';
 import Leaderboard from './pages/Leaderboard';
 import Referrals from './pages/Referrals';
 import Payment from './pages/Payment';
@@ -110,7 +110,7 @@ function App() {
                   <Route path="profile" element={<Profile />} />
                   <Route path="kyc" element={<KYC />} />
                   <Route path="rewards" element={<Rewards />} />
-                  <Route path="services" element={<Services />} />
+                  {/* <Route path="services" element={<Services />} /> */}
                   <Route path="referrals" element={<Referrals />} />
                   <Route path="leaderboard" element={<Leaderboard />} />
                 </Route>
