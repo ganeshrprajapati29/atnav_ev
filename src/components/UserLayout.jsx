@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation, Outlet, useNavigate } from 'react-router-dom';
+
 import {
   Home,
   User,
@@ -10,6 +11,7 @@ import {
   Menu,
   X
 } from 'lucide-react';
+
 import { useAuth } from '../hooks/useAuth';
 
 const UserLayout = () => {
@@ -34,7 +36,7 @@ const UserLayout = () => {
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
 
-      {/* ================= MOBILE OVERLAY ================= */}
+      {/* MOBILE OVERLAY */}
       {sidebarOpen && (
         <div
           onClick={() => setSidebarOpen(false)}
@@ -42,9 +44,9 @@ const UserLayout = () => {
         />
       )}
 
-      {/* ================= SIDEBAR ================= */}
+      {/* SIDEBAR */}
       <aside
-        className={`fixed lg:static z-50 inset-y-0 left-0 w-64 bg-white shadow-lg transform transition-transform duration-300
+        className={`fixed lg:static z-50 inset-y-0 left-0 w-64 bg-white shadow-lg transition-transform duration-300
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
       >
         <div className="flex flex-col h-full">
@@ -56,6 +58,7 @@ const UserLayout = () => {
               alt="Logo"
               className="w-12 h-12 rounded-lg"
             />
+
             <button
               onClick={() => setSidebarOpen(false)}
               className="lg:hidden"
@@ -89,9 +92,10 @@ const UserLayout = () => {
                   to={item.path}
                   onClick={() => setSidebarOpen(false)}
                   className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium transition
-                    ${isActive
-                      ? 'bg-emerald-100 text-emerald-700 border-r-4 border-emerald-600'
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                    ${
+                      isActive
+                        ? 'bg-emerald-100 text-emerald-700 border-r-4 border-emerald-600'
+                        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
                     }`}
                 >
                   <Icon className="w-5 h-5 mr-3" />
@@ -107,17 +111,16 @@ const UserLayout = () => {
               onClick={handleLogout}
               className="flex items-center w-full px-4 py-3 text-sm font-medium text-gray-600 rounded-lg hover:bg-gray-100 hover:text-gray-900"
             >
-              <LogOut className="w-5 h-5 mr-3" />
-              Logout
+              <LogOut className="w-5 h-5 mr-3" /> Logout
             </button>
           </div>
         </div>
       </aside>
 
-      {/* ================= MAIN CONTENT ================= */}
+      {/* MAIN CONTENT */}
       <div className="flex-1 flex flex-col">
 
-        {/* Top Bar (Mobile) */}
+        {/* Mobile Top Bar */}
         <header className="lg:hidden flex items-center h-16 px-4 bg-white shadow">
           <button onClick={() => setSidebarOpen(true)}>
             <Menu size={24} />
@@ -129,8 +132,8 @@ const UserLayout = () => {
         <main className="flex-1 overflow-y-auto p-4">
           <Outlet />
         </main>
-      </div>
 
+      </div>
     </div>
   );
 };

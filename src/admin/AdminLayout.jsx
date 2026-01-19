@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
-import {
-  HiHome,
-  HiUsers,
-  HiIdentification,
-  HiShieldCheck,
-  HiBolt,
-  HiChartBar,
-  HiDocumentText,
-  HiCog6Tooth,
-  HiUserPlus
-} from 'react-icons/hi2';
 
-import { LogOut, BarChart3, Menu, X } from 'lucide-react';
+// FIXED: hi2 ❌ removed, using lucide-react ✔️
+import {
+  Home,
+  Users,
+  IdCard,
+  ShieldCheck,
+  Bolt,
+  BarChart3,
+  FileText,
+  Settings,
+  UserPlus,
+  LogOut,
+  Menu,
+  X
+} from 'lucide-react';
+
 import { useAuth } from '../hooks/useAuth';
 
 const AdminLayout = () => {
@@ -21,38 +25,33 @@ const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const menuItems = [
-    { path: '/admin', label: 'Dashboard', icon: HiHome },
-    { path: '/admin/users', label: 'Users', icon: HiUsers },
-    { path: '/admin/add-user', label: 'Add User', icon: HiUserPlus },
-    { path: '/admin/user-details', label: 'User Details', icon: HiIdentification },
-    { path: '/admin/kyc', label: 'KYC Management', icon: HiShieldCheck },
-    { path: '/admin/transactions', label: 'Transactions', icon: HiDocumentText },
-    { path: '/admin/rewards', label: 'Rewards', icon: HiBolt },
-    { path: '/admin/analytics', label: 'Analytics', icon: HiChartBar },
+    { path: '/admin', label: 'Dashboard', icon: Home },
+    { path: '/admin/users', label: 'Users', icon: Users },
+    { path: '/admin/add-user', label: 'Add User', icon: UserPlus },
+    { path: '/admin/user-details', label: 'User Details', icon: IdCard },
+    { path: '/admin/kyc', label: 'KYC Management', icon: ShieldCheck },
+    { path: '/admin/transactions', label: 'Transactions', icon: FileText },
+    { path: '/admin/rewards', label: 'Rewards', icon: Bolt },
+    { path: '/admin/analytics', label: 'Analytics', icon: BarChart3 },
     { path: '/admin/reports', label: 'Reports', icon: BarChart3 },
-    { path: '/admin/logs', label: 'Logs', icon: HiDocumentText },
-    { path: '/admin/settings', label: 'Settings', icon: HiCog6Tooth },
+    { path: '/admin/logs', label: 'Logs', icon: FileText },
+    { path: '/admin/settings', label: 'Settings', icon: Settings },
   ];
-
-  const handleLogout = () => {
-    logout();
-  };
 
   return (
     <div className="flex h-screen bg-gray-100 overflow-hidden">
 
-      {/* ================= MOBILE OVERLAY ================= */}
+      {/* MOBILE OVERLAY */}
       {sidebarOpen && (
         <div
-          onClick={() => setSidebarOpen(false)}
           className="fixed inset-0 bg-black/40 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
         />
       )}
 
-      {/* ================= SIDEBAR ================= */}
+      {/* SIDEBAR */}
       <aside
-        className={`fixed lg:static z-50 inset-y-0 left-0 w-64 bg-white shadow-lg
-        transform transition-transform duration-300
+        className={`fixed lg:static z-50 inset-y-0 left-0 w-64 bg-white shadow-lg transition-transform duration-300
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}
       >
         <div className="flex flex-col h-full">
@@ -68,10 +67,7 @@ const AdminLayout = () => {
               <h1 className="text-lg font-bold">ATVAN Admin</h1>
             </div>
 
-            <button
-              onClick={() => setSidebarOpen(false)}
-              className="lg:hidden"
-            >
+            <button onClick={() => setSidebarOpen(false)} className="lg:hidden">
               <X size={24} />
             </button>
           </div>
@@ -104,21 +100,19 @@ const AdminLayout = () => {
           {/* Logout */}
           <div className="p-4 border-t">
             <button
-              onClick={handleLogout}
-              className="flex items-center w-full px-4 py-3 text-sm font-medium
-              text-gray-600 rounded-lg hover:bg-gray-100 hover:text-gray-900"
+              onClick={logout}
+              className="flex items-center w-full px-4 py-3 text-sm font-medium text-gray-600 rounded-lg hover:bg-gray-100 hover:text-gray-900"
             >
-              <LogOut className="w-5 h-5 mr-3" />
-              Logout
+              <LogOut className="w-5 h-5 mr-3" /> Logout
             </button>
           </div>
 
         </div>
       </aside>
 
-      {/* ================= MAIN CONTENT ================= */}
+      {/* MAIN CONTENT */}
       <div className="flex-1 flex flex-col">
-
+        
         {/* Mobile Top Bar */}
         <header className="lg:hidden flex items-center h-16 px-4 bg-white shadow">
           <button onClick={() => setSidebarOpen(true)}>
@@ -127,7 +121,7 @@ const AdminLayout = () => {
           <h2 className="ml-4 font-semibold text-gray-800">Admin Panel</h2>
         </header>
 
-        {/* Page Content */}
+        {/* Page */}
         <main className="flex-1 overflow-y-auto p-4">
           <Outlet />
         </main>
