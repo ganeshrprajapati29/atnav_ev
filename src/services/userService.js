@@ -28,6 +28,10 @@ export const getUserByUniqueId = async (uniqueId) => {
   return api.get(`/users/by-unique-id/${uniqueId}`);
 };
 
+export const searchUser = async (query) => {
+  return api.get('/users/search', { params: { query } });
+};
+
 export const payToUser = async (recipientId, amount, note) => {
   return api.post('/users/pay-to-user', { recipientId, amount, note });
 };

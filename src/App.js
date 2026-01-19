@@ -23,7 +23,6 @@ import Payment from './pages/Payment';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import TermsPrivacy from './pages/TermsPrivacy';
-import PayToUser from './pages/PayToUser';
 import QRScanner from './pages/QRScanner';
 import KYC from './pages/KYC';
 
@@ -90,7 +89,6 @@ function App() {
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/reset-password/:token" element={<ResetPassword />} />
                 <Route path="/terms-privacy" element={<TermsPrivacy />} />
-                <Route path="/pay-to/:userId" element={<PayToUser />} />
                 <Route path="/qr-scanner" element={<QRScanner />} />
                 <Route path="/dashboard" element={<Navigate to="/user/dashboard" replace />} />
                 <Route path="/profile" element={<Navigate to="/user/profile" replace />} />
