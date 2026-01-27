@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { AppContext } from "../context/AppContext";
 import { transferCoins } from "../services/userService";
 import PayToUser from "./PayToUser";
+import { QRCodeCanvas } from "qrcode.react";
 
 import {
 TrendingUp,
@@ -12,16 +13,41 @@ QrCode,
 Download,
 AlertCircle,
 Zap,
+Share,
 } from "lucide-react";
+
+// FIXED QR COMPONENT
+const ProfessionalQRCode = ({ value, size = 200 }) => {
+return ( <div className="relative inline-block"> <QRCodeCanvas
+     value={value}
+     size={size}
+     level="H"
+     includeMargin={true}
+     className="rounded-lg shadow-lg"
+   />
+
+```
+  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-emerald-500">
+      <span className="text-2xl">💰</span>
+    </div>
+  </div>
+</div>
+
+
+);
+};
 
 const Dashboard = () => {
 const navigate = useNavigate();
 const { user, updateUser } = useAuth();
 const { loading, fetchDashboardData } = React.useContext(AppContext);
+const qrRef = useRef();
 
 const [showTransferModal, setShowTransferModal] = useState(false);
 const [showQRModal, setShowQRModal] = useState(false);
 const [showPayToUserModal, setShowPayToUserModal] = useState(false);
+const [showReceiveQRModal, setShowReceiveQRModal] = useState(false);
 const [transferLoading, setTransferLoading] = useState(false);
 
 const [transferData, setTransferData] = useState({
@@ -75,6 +101,38 @@ const handleTransferCoins = async () => {
     alert("Transfer failed");
   } finally {
     setTransferLoading(false);
+  }
+};
+
+const handleShareQR = async () => {
+  const qrData = JSON.stringify({
+    type: 'payment',
+    userId: user.uniqueId,
+    name: user.name
+  });
+
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: 'Payment QR Code',
+        text: `Pay ${user.name} using this QR.`,
+        url: qrData
+      });
+    } catch {}
+  } else {
+    navigator.clipboard.writeText(qrData);
+    alert('QR data copied to clipboard');
+  }
+};
+
+const handleDownloadQR = () => {
+  const canvas = qrRef.current.querySelector('canvas');
+  if (canvas) {
+    const url = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `payment-qr-${user.uniqueId}.png`;
+    link.click();
   }
 };
 
@@ -151,7 +209,7 @@ return (
         </button>
 
         <button
-          onClick={() => alert('QR Code feature coming soon!')}
+          onClick={() => setShowReceiveQRModal(true)}
           className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 rounded-xl text-lg flex items-center justify-center gap-3"
         >
           <Download size={22} />
@@ -221,6 +279,57 @@ return (
             isModal={true}
             onClose={() => setShowPayToUserModal(false)}
           />
+        </div>
+      </div>
+    )}
+
+    {/* Receive QR Modal */}
+    {showReceiveQRModal && (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">Receive Gold Coins</h2>
+            <p className="text-gray-600 mb-6">
+              Show this QR code to receive payments and get gold coins credited to your wallet.
+            </p>
+
+            {/* User QR Code */}
+            <div ref={qrRef} className="flex justify-center my-6">
+              <ProfessionalQRCode
+                value={JSON.stringify({
+                  type: "payment",
+                  userId: user.uniqueId,
+                  name: user.name
+                })}
+              />
+            </div>
+
+            <div className="bg-gray-50 rounded-lg p-4 mb-6">
+              <p className="text-sm text-gray-600 mb-2">User ID:</p>
+              <p className="font-mono font-semibold text-lg">{user.uniqueId}</p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowReceiveQRModal(false)}
+                className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors"
+              >
+                Close
+              </button>
+              <button
+                onClick={handleShareQR}
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
+              >
+                <Share size={16} /> Share
+              </button>
+              <button
+                onClick={handleDownloadQR}
+                className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
+              >
+                <Download size={16} /> Download
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     )}

@@ -6,7 +6,7 @@ import { HiUser, HiCurrencyDollar, HiCreditCard, HiArrowLeft, HiCheck } from 're
 import { toast } from 'react-toastify';
 
 const PayToUser = ({ isModal = false, onClose }) => {
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
   const navigate = useNavigate();
   const [recipientQuery, setRecipientQuery] = useState('');
   const [selectedRecipient, setSelectedRecipient] = useState(null);
@@ -27,9 +27,9 @@ const PayToUser = ({ isModal = false, onClose }) => {
     setFinding(true);
     try {
       const response = await userService.searchUser(recipientQuery.trim());
-      if (response.data.length === 1) {
-        setSelectedRecipient(response.data[0]);
-      } else if (response.data.length > 1) {
+      if (response.length === 1) {
+        setSelectedRecipient(response[0]);
+      } else if (response.length > 1) {
         toast.error('Multiple users found. Please be more specific.');
       } else {
         toast.error('User not found');
@@ -49,15 +49,16 @@ const PayToUser = ({ isModal = false, onClose }) => {
       return;
     }
 
-    if (parseFloat(amount) > user.totalGold) {
-      toast.error('Insufficient gold coins');
+    if (parseFloat(amount) > user.totalCoins) {
+      toast.error('Insufficient coins');
       return;
     }
 
     setPaying(true);
     try {
       const response = await userService.payToUser(selectedRecipient._id, parseFloat(amount), note);
-      setTransactionId(response.data.transactionId);
+      setTransactionId(response.transactionId);
+      updateUser({ ...user, totalCoins: user.totalCoins - parseFloat(amount) });
       setShowConfirmModal(false);
       setShowSuccessModal(true);
     } catch (error) {
@@ -123,7 +124,7 @@ const PayToUser = ({ isModal = false, onClose }) => {
               <div className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Amount (Gold Coins)
+                    Amount (Coins)
                   </label>
                   <div className="relative">
                     <HiCurrencyDollar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -138,7 +139,7 @@ const PayToUser = ({ isModal = false, onClose }) => {
                     />
                   </div>
                   <p className="text-sm text-gray-500 mt-1">
-                    Your balance: {user.totalGold} gold coins
+                    Your balance: {user.totalCoins} coins
                   </p>
                 </div>
 
@@ -157,11 +158,11 @@ const PayToUser = ({ isModal = false, onClose }) => {
 
                 <button
                   onClick={() => setShowConfirmModal(true)}
-                  disabled={!amount || parseFloat(amount) <= 0 || parseFloat(amount) > user.totalGold}
+                  disabled={!amount || parseFloat(amount) <= 0 || parseFloat(amount) > user.totalCoins}
                   className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
                   <HiCreditCard size={20} />
-                  Pay {amount || 0} Gold Coins
+                  Pay {amount || 0} Coins
                 </button>
               </div>
 
@@ -192,7 +193,7 @@ const PayToUser = ({ isModal = false, onClose }) => {
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Amount:</span>
-                <span className="font-medium">{amount} Gold Coins</span>
+                <span className="font-medium">{amount} Coins</span>
               </div>
               {note && (
                 <div className="flex justify-between">

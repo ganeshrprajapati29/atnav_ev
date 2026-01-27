@@ -37,6 +37,11 @@ const adminService = {
     return await api.put(`/admin/users/${userId}`, { blocked: false });
   },
 
+  // Delete user
+  deleteUser: async (userId) => {
+    return await api.delete(`/admin/users/${userId}`);
+  },
+
   // Get all withdrawals
   getWithdrawals: async () => {
     try {
@@ -127,6 +132,28 @@ const adminService = {
     } catch (err) {
       console.error("GET ACTIVITY LOGS ERROR:", err);
       return { logs: [], pagination: {}, filters: {} };
+    }
+  },
+
+  // Get admin dashboard stats
+  getAdminDashboardStats: async () => {
+    try {
+      const data = await api.get('/admin/dashboard-stats');
+      return data || {};
+    } catch (err) {
+      console.error("GET ADMIN DASHBOARD STATS ERROR:", err);
+      return {};
+    }
+  },
+
+  // Get recent activity
+  getRecentActivity: async () => {
+    try {
+      const data = await api.get('/admin/recent-activity');
+      return Array.isArray(data) ? data : [];
+    } catch (err) {
+      console.error("GET RECENT ACTIVITY ERROR:", err);
+      return [];
     }
   }
 };

@@ -35,3 +35,7 @@ export const searchUser = async (query) => {
 export const payToUser = async (recipientId, amount, note) => {
   return api.post('/users/pay-to-user', { recipientId, amount, note });
 };
+
+export const getTransactionHistory = async () => {
+  return api.get('/users/transactions');
+};

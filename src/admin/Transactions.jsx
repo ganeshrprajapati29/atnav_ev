@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import adminService from '../services/adminService';
+import { Loader2 } from 'lucide-react';
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([]);
@@ -25,13 +26,7 @@ const Transactions = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-white">
-        <div className="text-center">
-          <div className="relative w-24 h-24 mx-auto mb-4">
-            <div className="absolute inset-0 border-4 border-emerald-100 rounded-full"></div>
-            <div className="absolute inset-0 border-4 border-transparent border-t-emerald-600 border-r-emerald-600 rounded-full animate-spin"></div>
-          </div>
-          <p className="text-gray-600 text-lg">Loading Transactions...</p>
-        </div>
+        <Loader2 className="w-10 h-10 text-emerald-600 animate-spin" />
       </div>
     );
   }
@@ -40,13 +35,11 @@ const Transactions = () => {
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50 py-10">
       <div className="max-w-7xl mx-auto px-4">
 
-        {/* Page Header */}
         <div className="mb-10">
           <h1 className="text-4xl font-bold text-gray-900">Transaction Management</h1>
           <p className="text-lg text-gray-600">View all transaction records</p>
         </div>
 
-        {/* Transactions Table */}
         <div className="bg-white rounded-xl shadow-md p-6 mb-10">
           <div className="overflow-x-auto">
             <table className="min-w-full">
@@ -68,59 +61,48 @@ const Transactions = () => {
                 {transactions.map((transaction) => (
                   <tr key={transaction._id} className="border-t">
 
-                    {/* Transaction ID */}
+                    <td className="px-4 py-3 font-semibold">{transaction._id?.slice(-8)}</td>
+
                     <td className="px-4 py-3">
-                      <p className="font-semibold text-gray-900">{transaction._id?.slice(-8)}</p>
+                      {transaction.user?.name ||
+                        transaction.withdrawal?.user?.name ||
+                        'N/A'}
                     </td>
 
-                    {/* User Name */}
-                    <td className="px-4 py-3">
-                      <p>{transaction.user?.name || transaction.withdrawal?.user?.name || 'N/A'}</p>
+                    <td className="px-4 py-3 text-sm">
+                      {transaction.user?.email ||
+                        transaction.withdrawal?.user?.email ||
+                        'N/A'}
                     </td>
 
-                    {/* Email */}
-                    <td className="px-4 py-3">
-                      <p className="text-sm">{transaction.user?.email || transaction.withdrawal?.user?.email || 'N/A'}</p>
+                    <td className="px-4 py-3 text-sm">
+                      {transaction.user?.uniqueId ||
+                        transaction.withdrawal?.user?.uniqueId ||
+                        'N/A'}
                     </td>
 
-                    {/* Unique ID */}
-                    <td className="px-4 py-3">
-                      <p className="text-sm">{transaction.user?.uniqueId || transaction.withdrawal?.user?.uniqueId || 'N/A'}</p>
+                    <td className="px-4 py-3 font-semibold">
+                      ₹{transaction.withdrawal?.amount || transaction.amount}
                     </td>
 
-                    {/* Withdrawal Amount */}
-                    <td className="px-4 py-3">
-                      <span className="font-semibold">₹{transaction.withdrawal?.amount || transaction.amount}</span>
-                    </td>
+                    <td className="px-4 py-3 font-semibold">₹{transaction.amount}</td>
 
-                    {/* Transaction Amount */}
                     <td className="px-4 py-3">
-                      <span className="font-semibold">₹{transaction.amount}</span>
-                    </td>
-
-                    {/* Status */}
-                    <td className="px-4 py-3">
-                      <span
-                        className={`px-2 py-1 rounded text-xs font-medium ${
-                          transaction.status === 'SUCCESS'
-                            ? 'bg-green-100 text-green-700'
-                            : 'bg-red-100 text-red-700'
-                        }`}
-                      >
+                      <span className={`px-2 py-1 rounded text-xs font-medium ${
+                        transaction.status === 'SUCCESS'
+                          ? 'bg-green-100 text-green-700'
+                          : 'bg-red-100 text-red-700'
+                      }`}>
                         {transaction.status}
                       </span>
                     </td>
 
-                    {/* Payout ID */}
-                    <td className="px-4 py-3">
-                      <p className="text-sm">{transaction.payoutId || 'N/A'}</p>
+                    <td className="px-4 py-3 text-sm">
+                      {transaction.payoutId || 'N/A'}
                     </td>
 
-                    {/* Date */}
-                    <td className="px-4 py-3">
-                      <p className="text-sm text-gray-600">
-                        {new Date(transaction.createdAt).toLocaleString()}
-                      </p>
+                    <td className="px-4 py-3 text-sm text-gray-600">
+                      {new Date(transaction.createdAt).toLocaleString()}
                     </td>
 
                   </tr>

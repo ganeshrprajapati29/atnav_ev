@@ -9,7 +9,8 @@ import {
   Users,
   ShieldCheck,
   Menu,
-  X
+  X,
+  History
 } from 'lucide-react';
 
 import { useAuth } from '../hooks/useAuth';
@@ -26,6 +27,7 @@ const UserLayout = () => {
     { path: '/user/kyc', label: 'KYC Verification', icon: ShieldCheck },
     { path: '/user/rewards', label: 'Rewards', icon: DollarSign },
     { path: '/user/referrals', label: 'Referrals', icon: Users },
+    { path: '/user/transactions', label: 'Transaction History', icon: History },
   ];
 
   const handleLogout = () => {
