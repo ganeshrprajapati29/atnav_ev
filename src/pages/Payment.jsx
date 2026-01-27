@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { createPaymentOrder, verifyPayment } from "../services/authService";
 import { CreditCard, CheckCircle, AlertCircle } from "lucide-react";
@@ -7,7 +7,11 @@ import { CreditCard, CheckCircle, AlertCircle } from "lucide-react";
 const Payment = () => {
   const { user, updateUser } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
+
+  // Get amount from URL params, default to 100 if not provided
+  const amount = parseInt(searchParams.get('amount')) || 100;
 
   // 🟢 Check ENV key (VERY IMPORTANT)
   console.log("ENV Razorpay Key:", process.env.REACT_APP_RAZORPAY_KEY_ID);
@@ -45,7 +49,7 @@ const Payment = () => {
 
     try {
       // 1️⃣ Create order
-      const orderData = await createPaymentOrder(100);
+      const orderData = await createPaymentOrder(amount);
 
       if (!orderData?.orderId) {
         alert("Order creation failed.");
@@ -72,6 +76,7 @@ const Payment = () => {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
+              amount: amount,
             });
 
             updateUser({
@@ -141,7 +146,7 @@ const Payment = () => {
             Complete Payment
           </h1>
           <p className="text-gray-600">
-            Pay ₹100 to activate your reward system service
+            Pay ₹{amount} to activate your reward system service
           </p>
         </div>
 
@@ -165,7 +170,7 @@ const Payment = () => {
             <p className="text-sm text-gray-600 mb-1">
               Service Activation Fee
             </p>
-            <p className="text-3xl font-bold text-gray-800">₹100</p>
+            <p className="text-3xl font-bold text-gray-800">₹{amount}</p>
             <p className="text-xs text-gray-500 mt-1">One-time payment</p>
           </div>
 
@@ -175,7 +180,7 @@ const Payment = () => {
             className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 disabled:cursor-not-allowed text-white font-bold py-4 px-4 rounded-lg transition-all transform hover:scale-105 mb-4"
           >
             <CreditCard size={20} />
-            {loading ? "Processing..." : "Pay ₹100 & Activate Service"}
+            {loading ? "Processing..." : `Pay ₹${amount} & Activate Service`}
           </button>
 
           <button

@@ -183,7 +183,7 @@ const Home = () => {
     {/* Heading */}
     <div className="text-center mb-20">
       <h2 className="text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
-        About <span className="text-indigo-600">Atvan (CIBORI Group)</span>
+        What <span className="text-indigo-600">is (Atvan?)</span>
       </h2>
       {/* <p className="text-lg text-gray-600 max-w-xl mx-auto">
         (About Us)
@@ -458,7 +458,7 @@ const Home = () => {
                   <div className="text-sm text-gray-500">One-time purchase</div>
                 </div>
                 <Link
-                  to="/payment"
+                  to="/payment?amount=100"
                   className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-green-600 text-white px-6 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-105"
                 >
                   Buy Now
@@ -512,7 +512,7 @@ const Home = () => {
                   <div className="text-sm text-gray-500">One-time purchase</div>
                 </div>
                 <Link
-                  to="/payment"
+                  to="/payment?amount=1000"
                   className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-yellow-600 text-white px-6 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-105"
                 >
                   Buy Now
@@ -570,7 +570,7 @@ const Home = () => {
                   <div className="text-sm text-purple-300">One-time purchase</div>
                 </div>
                 <Link
-                  to="/payment"
+                  to="/payment?amount=10000"
                   className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-105"
                 >
                   Buy Now
