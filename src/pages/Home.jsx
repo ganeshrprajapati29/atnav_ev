@@ -154,112 +154,63 @@ const Home = () => {
   </div>
 </section>
 
-     {/* About Us Section */}
-<section className="relative py-28 overflow-hidden bg-white">
-
-  {/* SVG Background */}
-  <svg
-    className="absolute top-0 left-0 w-full h-full -z-10"
-    viewBox="0 0 1440 600"
-    preserveAspectRatio="none"
-  >
-    <path
-      d="M0,160 C240,260 480,40 720,100 960,160 1200,300 1440,180 L1440,0 L0,0 Z"
-      fill="#eef2ff"
-    />
-    <path
-      d="M0,300 C300,420 520,200 760,260 1040,330 1280,460 1440,360 L1440,0 L0,0 Z"
-      fill="#e0e7ff"
-      opacity="0.6"
-    />
-  </svg>
-
-  {/* Blur Shapes */}
-  <div className="absolute -top-24 -left-24 w-96 h-96 bg-indigo-200 rounded-full blur-3xl opacity-40"></div>
-  <div className="absolute top-40 -right-24 w-96 h-96 bg-blue-200 rounded-full blur-3xl opacity-40"></div>
-
-  <div className="container mx-auto px-6 relative">
+   {/* About Atvan Section */}
+<section className="relative py-24 bg-white overflow-hidden">
+  <div className="container mx-auto px-6">
 
     {/* Heading */}
-    <div className="text-center mb-20">
-      <h2 className="text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">
-        What <span className="text-indigo-600">is (Atvan?)</span>
+    <div className="mb-16">
+      <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">
+       What <span className="text-indigo-600">is atvan? </span>
       </h2>
-      {/* <p className="text-lg text-gray-600 max-w-xl mx-auto">
-        (About Us)
-      </p> */}
+      <div className="mt-4 w-28 h-1 bg-indigo-600 rounded-full"></div>
     </div>
 
-    {/* Card */}
-    <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+    {/* Content Wrapper */}
+    <div className="max-w-6xl space-y-12">
 
-      {/* Text Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-        {/* CIBORI Group Card */}
-        <div className="bg-white/70 backdrop-blur-xl border border-indigo-100 shadow-xl rounded-2xl p-6">
-          <h4 className="text-lg font-semibold text-indigo-600 mb-3">CIBORI Group</h4>
-          <p className="text-gray-700 leading-relaxed text-sm">
-            Established in 2010, representing sectors like hospitality, tourism, health & nutrition, finance, import/export, and electric vehicle manufacturing.
-          </p>
-        </div>
-
-        {/* Atvan EV Manufacturing Card */}
-        <div className="bg-white/70 backdrop-blur-xl border border-indigo-100 shadow-xl rounded-2xl p-6">
-          <h4 className="text-lg font-semibold text-indigo-600 mb-3">Atvan EV Manufacturing</h4>
-          <p className="text-gray-700 leading-relaxed text-sm">
-            Working toward a safer, eco-friendly future. Building an ecosystem to make India a global EV hub and redefine innovation boundaries.
-          </p>
-        </div>
-
-        {/* Coin Registration & Pricing Card */}
-        <div className="bg-white/70 backdrop-blur-xl border border-indigo-100 shadow-xl rounded-2xl p-6">
-          <h4 className="text-lg font-semibold text-indigo-600 mb-3">Coin Registration & Pricing</h4>
-          <p className="text-gray-700 leading-relaxed text-sm">
-            1 crore coins registered, 70 lakh for sale at ₹10 each. Guaranteed annual value increase, targeting ₹1500 then ₹100,000 per coin.
-          </p>
-        </div>
-
-        {/* Distribution & Growth Strategy Card */}
-        <div className="bg-white/70 backdrop-blur-xl border border-indigo-100 shadow-xl rounded-2xl p-6">
-          <h4 className="text-lg font-semibold text-indigo-600 mb-3">Distribution & Growth Strategy</h4>
-          <p className="text-gray-700 leading-relaxed text-sm">
-            ₹5,000–₹15,000 coins per sale. Benefit from rising EV demand. Limited to 10 coins per individual to prevent artificial purchasing.
-          </p>
-        </div>
-
+      {/* Paragraph 1 */}
+      <div className="flex gap-6">
+        <div className="w-1 bg-indigo-600 rounded-full"></div>
+        <p className="text-gray-700 text-lg leading-relaxed">
+          Atvan is a part of the CIBORI GROUP, established in 2010, with a strong presence
+          across hospitality, tourism, health & nutrition, finance, import & export, and
+          electric vehicle manufacturing. As an electric vehicle manufacturing company,
+          Atvan is committed to building a safer, smarter, and eco-friendly future by
+          developing an advanced ecosystem that positions India as a global EV hub and
+          drives the next wave of innovation.
+        </p>
       </div>
 
-      {/* Feature Panel */}
-      <div className="grid grid-cols-1 gap-6">
+      {/* Paragraph 2 */}
+      <div className="flex gap-6">
+        <div className="w-1 bg-indigo-600 rounded-full"></div>
+        <p className="text-gray-700 text-lg leading-relaxed">
+          Atvan has introduced a total supply of 10 crore coins, out of which 70% are
+          available for sale at an initial price of ₹10 per coin. With a guaranteed
+          return program, the value of the Atvan coin is designed to increase every year,
+          offering a unique opportunity to secure long-term growth by owning just 10
+          coins. The first milestone targets ₹1500 per coin, with a long-term vision of
+          achieving ₹100,000 per coin.
+        </p>
+      </div>
 
-        <div className="bg-gradient-to-br from-indigo-500 to-blue-500 text-white rounded-2xl p-8 shadow-xl">
-          <h4 className="text-xl font-semibold mb-2">Electric Vehicle Manufacturing</h4>
-          <p className="opacity-90">
-            Atvan is working toward a better, safer, and eco-friendly future by building an ecosystem to make India a global EV hub.
-          </p>
-        </div>
-
-        <div className="bg-gradient-to-br from-blue-500 to-cyan-500 text-white rounded-2xl p-8 shadow-xl">
-          <h4 className="text-xl font-semibold mb-2">Coin Value Growth</h4>
-          <p className="opacity-90">
-            Guaranteed annual increase in coin value, targeting ₹1500 per coin initially and ₹100,000 long-term.
-          </p>
-        </div>
-
-        <div className="bg-gradient-to-br from-indigo-500 to-purple-500 text-white rounded-2xl p-8 shadow-xl">
-          <h4 className="text-xl font-semibold mb-2">Limited Coin Supply</h4>
-          <p className="opacity-90">
-            Only 70 lakh coins available for sale out of 1 crore total, with each buyer limited to 10 coins.
-          </p>
-        </div>
-
+      {/* Paragraph 3 */}
+      <div className="flex gap-6">
+        <div className="w-1 bg-indigo-600 rounded-full"></div>
+        <p className="text-gray-700 text-lg leading-relaxed">
+          With every sale, Atvan transfers ₹5,000–₹15,000 worth of coins, ensuring direct
+          value distribution. As electric vehicles represent the future of mobility,
+          growing EV adoption will naturally increase demand and benefits for coin
+          holders. Each individual is limited to 10 coins, maintaining scarcity,
+          preventing unnecessary trading, and accelerating value growth through healthy
+          market competition.
+        </p>
       </div>
 
     </div>
   </div>
 </section>
-
 
       {/* Benefits Section */}
       <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
