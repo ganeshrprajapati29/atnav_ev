@@ -29,7 +29,7 @@ return ( <div className="relative inline-block"> <QRCodeCanvas
 ```
   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
     <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-emerald-500">
-      <span className="text-2xl">💰</span>
+      <img src="https://i.ibb.co/Xr3fbTmd/IMG-20260116-WA0011.jpg" alt="Logo" className="w-8 h-8 object-contain" />
     </div>
   </div>
 </div>
@@ -167,7 +167,9 @@ return (
         <p className="text-sm text-gray-600 font-medium">Total Wallet Coins</p>
         <div className="flex items-center justify-between mt-2">
           <h2 className="text-4xl font-extrabold text-emerald-600">{user?.totalCoins}</h2>
-          <div className="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-3xl">💰</div>
+    <div className="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center">
+      <img src="https://i.ibb.co/Xr3fbTmd/IMG-20260116-WA0011.jpg" alt="Logo" className="w-10 h-10 object-contain rounded-lg" />
+    </div>
         </div>
         <p className="text-xs text-gray-500 mt-2">Available to use</p>
       </div>

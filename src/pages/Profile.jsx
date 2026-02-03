@@ -28,10 +28,10 @@ return ( <div className="relative inline-block"> <QRCodeCanvas
      className="rounded-lg shadow-lg"
    />
 
-```
+
   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
     <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-emerald-500">
-      <span className="text-2xl">💰</span>
+      <img src="https://i.ibb.co/Xr3fbTmd/IMG-20260116-WA0011.jpg" alt="Logo" className="w-8 h-8 object-contain" />
     </div>
   </div>
 </div>
@@ -147,7 +147,7 @@ return ( <div className="min-h-screen flex items-center justify-center"> <p clas
 
 return ( <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50 py-12 px-4">
 
-```
+
   <div className="max-w-6xl mx-auto">
 
     <div className="text-center mb-8">

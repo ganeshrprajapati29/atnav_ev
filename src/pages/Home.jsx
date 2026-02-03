@@ -28,7 +28,8 @@ import {
   Award as AwardIcon,
   Wallet,
   QrCode,
-  UserPlus
+  UserPlus,
+  Building
 } from 'lucide-react';
 
 const Home = () => {
@@ -155,23 +156,35 @@ const Home = () => {
 </section>
 
    {/* About Atvan Section */}
-<section className="relative py-24 bg-white overflow-hidden">
-  <div className="container mx-auto px-6">
+<section className="relative py-24 bg-gradient-to-b from-white to-emerald-50 overflow-hidden">
+  {/* Background Decorative Elements */}
+  <div className="absolute inset-0 pointer-events-none">
+    <div className="absolute top-20 left-10 w-32 h-32 bg-emerald-200/20 rounded-full blur-3xl"></div>
+    <div className="absolute bottom-20 right-10 w-40 h-40 bg-yellow-200/20 rounded-full blur-3xl"></div>
+  </div>
+
+  <div className="container mx-auto px-6 relative z-10">
 
     {/* Heading */}
-    <div className="mb-16">
+    <div className="text-center mb-16">
       <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900">
-       What <span className="text-indigo-600">is atvan? </span>
+       What <span className="text-emerald-600">is Atvan?</span>
       </h2>
-      <div className="mt-4 w-28 h-1 bg-indigo-600 rounded-full"></div>
+      <div className="mt-4 w-28 h-1 bg-gradient-to-r from-emerald-500 to-yellow-500 rounded-full mx-auto"></div>
+      <p className="mt-6 text-xl text-gray-600 max-w-2xl mx-auto">
+        Discover the revolutionary force behind India's EV transformation and wealth creation platform.
+      </p>
     </div>
 
-    {/* Content Wrapper */}
-    <div className="max-w-6xl space-y-12">
+    {/* Content Cards */}
+    <div className="max-w-7xl mx-auto grid md:grid-cols-1 lg:grid-cols-3 gap-8">
 
-      {/* Paragraph 1 */}
-      <div className="flex gap-6">
-        <div className="w-1 bg-indigo-600 rounded-full"></div>
+      {/* Card 1: Company Overview */}
+      <div className="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-emerald-100">
+        <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+          <Building className="w-8 h-8 text-white" />
+        </div>
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Legacy & Vision</h3>
         <p className="text-gray-700 text-lg leading-relaxed">
           Atvan is a part of the CIBORI GROUP, established in 2010, with a strong presence
           across hospitality, tourism, health & nutrition, finance, import & export, and
@@ -182,9 +195,12 @@ const Home = () => {
         </p>
       </div>
 
-      {/* Paragraph 2 */}
-      <div className="flex gap-6">
-        <div className="w-1 bg-indigo-600 rounded-full"></div>
+      {/* Card 2: Coin System */}
+      <div className="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-emerald-100">
+        <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+          <Coins className="w-8 h-8 text-white" />
+        </div>
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">Atvan Coin Revolution</h3>
         <p className="text-gray-700 text-lg leading-relaxed">
           Atvan has introduced a total supply of 10 crore coins, out of which 70% are
           available for sale at an initial price of ₹10 per coin. With a guaranteed
@@ -195,9 +211,12 @@ const Home = () => {
         </p>
       </div>
 
-      {/* Paragraph 3 */}
-      <div className="flex gap-6">
-        <div className="w-1 bg-indigo-600 rounded-full"></div>
+      {/* Card 3: Value Proposition */}
+      <div className="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-emerald-100">
+        <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+          <TrendingUp className="w-8 h-8 text-white" />
+        </div>
+        <h3 className="text-2xl font-bold text-gray-900 mb-4">Sustainable Growth</h3>
         <p className="text-gray-700 text-lg leading-relaxed">
           With every sale, Atvan transfers ₹5,000–₹15,000 worth of coins, ensuring direct
           value distribution. As electric vehicles represent the future of mobility,
@@ -209,6 +228,15 @@ const Home = () => {
       </div>
 
     </div>
+
+    {/* Bottom CTA */}
+    <div className="text-center mt-16">
+      <div className="inline-flex items-center gap-2 bg-emerald-100 px-6 py-3 rounded-full">
+        <Sparkles className="w-5 h-5 text-emerald-600" />
+        <span className="text-emerald-800 font-medium">Join the EV Revolution Today</span>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -408,13 +436,22 @@ const Home = () => {
                   <div className="text-3xl font-bold text-gray-900 mb-1">₹100</div>
                   <div className="text-sm text-gray-500">One-time purchase</div>
                 </div>
-                <Link
-                  to="/payment?amount=100"
-                  className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-green-600 text-white px-6 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-105"
-                >
-                  Buy Now
-                  <ChevronRight className="w-5 h-5" />
-                </Link>
+                {user ? (
+                  <Link
+                    to="/payment?amount=100"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-green-600 text-white px-6 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-105"
+                  >
+                    Buy Now
+                    <ChevronRight className="w-5 h-5" />
+                  </Link>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-gray-400 text-white px-6 py-3 rounded-xl font-semibold text-lg shadow-lg cursor-not-allowed"
+                  >
+                    Login to Buy
+                  </Link>
+                )}
               </div>
             </div>
 
@@ -462,13 +499,22 @@ const Home = () => {
                   <div className="text-3xl font-bold text-gray-900 mb-1">₹1000</div>
                   <div className="text-sm text-gray-500">One-time purchase</div>
                 </div>
-                <Link
-                  to="/payment?amount=1000"
-                  className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-yellow-600 text-white px-6 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-105"
-                >
-                  Buy Now
-                  <ChevronRight className="w-5 h-5" />
-                </Link>
+                {user ? (
+                  <Link
+                    to="/payment?amount=1000"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 to-yellow-600 text-white px-6 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-105"
+                  >
+                    Buy Now
+                    <ChevronRight className="w-5 h-5" />
+                  </Link>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-gray-400 text-white px-6 py-3 rounded-xl font-semibold text-lg shadow-lg cursor-not-allowed"
+                  >
+                    Login to Buy
+                  </Link>
+                )}
               </div>
             </div>
 
@@ -520,13 +566,22 @@ const Home = () => {
                   <div className="text-3xl font-bold text-white mb-1">₹10000</div>
                   <div className="text-sm text-purple-300">One-time purchase</div>
                 </div>
-                <Link
-                  to="/payment?amount=10000"
-                  className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-105"
-                >
-                  Buy Now
-                  <ChevronRight className="w-5 h-5" />
-                </Link>
+                {user ? (
+                  <Link
+                    to="/payment?amount=10000"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-500 to-pink-600 text-white px-6 py-3 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-105"
+                  >
+                    Buy Now
+                    <ChevronRight className="w-5 h-5" />
+                  </Link>
+                ) : (
+                  <Link
+                    to="/login"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-gray-400 text-white px-6 py-3 rounded-xl font-semibold text-lg shadow-lg cursor-not-allowed"
+                  >
+                    Login to Buy
+                  </Link>
+                )}
               </div>
             </div>
           </div>

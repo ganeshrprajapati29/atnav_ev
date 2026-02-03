@@ -6,6 +6,7 @@ import {
   Award,
   UserCircle,
   Trash2,
+  UserCheck,
 } from "lucide-react";
 import adminService from "../services/adminService";
 
@@ -97,6 +98,18 @@ const Users = () => {
         alert("User deleted successfully!");
       } catch (error) {
         alert("Failed to delete user");
+      }
+    }
+  };
+
+  const handleActivateUser = async (userId, userName, userEmail) => {
+    if (window.confirm(`Are you sure you want to activate ${userName}'s account? This will send an activation email and grant full access to the platform.`)) {
+      try {
+        await adminService.activateUserAccount(userId);
+        fetchUsers();
+        alert(`User ${userName} activated successfully! Activation email sent to ${userEmail}.`);
+      } catch (error) {
+        alert("Failed to activate user account");
       }
     }
   };
@@ -242,6 +255,16 @@ const Users = () => {
                     >
                       <Award size={20} />
                     </button>
+
+                    {user.paymentStatus !== "completed" && (
+                      <button
+                        onClick={() => handleActivateUser(user._id, user.name, user.email)}
+                        className="text-green-600 hover:text-green-800"
+                        title="Activate User Account"
+                      >
+                        <UserCheck size={20} />
+                      </button>
+                    )}
 
                     {user.blocked ? (
                       <button

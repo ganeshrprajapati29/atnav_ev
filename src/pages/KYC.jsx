@@ -34,14 +34,12 @@ const KYC = () => {
 
   const [files, setFiles] = useState({
     aadhaarDocument: null,
-    panDocument: null,
-    selfie: null
+    panDocument: null
   });
 
   const [filePreviews, setFilePreviews] = useState({
     aadhaarDocument: null,
-    panDocument: null,
-    selfie: null
+    panDocument: null
   });
 
   useEffect(() => {
@@ -100,7 +98,7 @@ const KYC = () => {
       return;
     }
 
-    if (!files.aadhaarDocument || !files.panDocument || !files.selfie) {
+    if (!files.aadhaarDocument || !files.panDocument) {
       alert("Upload all required documents.");
       return;
     }
@@ -369,7 +367,7 @@ const KYC = () => {
             <HiPhoto /> Upload Documents
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
 
             {/* Aadhaar */}
             <div className="text-center">
@@ -402,23 +400,6 @@ const KYC = () => {
                 )}
               </label>
               <input id="pan-upload" type="file" name="panDocument" className="hidden"
-                     onChange={handleFileChange} />
-            </div>
-
-            {/* Selfie */}
-            <div className="text-center">
-              <label className="block text-sm mb-2">Selfie *</label>
-              <label
-                htmlFor="selfie-upload"
-                className="block w-full h-32 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center cursor-pointer hover:border-emerald-600"
-              >
-                {filePreviews.selfie ? (
-                  <img src={filePreviews.selfie} className="w-full h-full rounded-lg" />
-                ) : (
-                  <HiArrowUpTray size={24} className="text-gray-400" />
-                )}
-              </label>
-              <input id="selfie-upload" type="file" name="selfie" className="hidden"
                      onChange={handleFileChange} />
             </div>
 

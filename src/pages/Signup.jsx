@@ -97,7 +97,8 @@ const Signup = () => {
       Object.entries(formData).forEach(([key, val]) => data.append(key, val));
 
       await register(data);
-      // Registration successful, will navigate to payment
+      // Registration successful, redirect to payment
+      window.location.href = "/payment?amount=100";
     } catch (err) {
       setError(err.message || "Registration failed. Please try again.");
     }
