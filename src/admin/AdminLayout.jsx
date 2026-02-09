@@ -27,8 +27,9 @@ const AdminLayout = () => {
 
   const menuItems = [
     { path: '/admin', label: 'Dashboard', icon: Home },
-    // { path: '/admin/home', label: 'Home Content', icon: Edit },
+    { path: '/admin/home', label: 'Home Content', icon: Edit },
     { path: '/admin/users', label: 'Users', icon: Users },
+    { path: '/admin/profile', label: 'Profile', icon: Users },
     { path: '/admin/add-user', label: 'Add User', icon: UserPlus },
     { path: '/admin/user-details', label: 'User Details', icon: IdCard },
     { path: '/admin/kyc', label: 'KYC Management', icon: ShieldCheck },

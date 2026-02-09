@@ -46,6 +46,8 @@ import RewardsAdmin from './admin/RewardsAdmin';
 import Reports from './admin/Reports';
 import KYCAdmin from './admin/KYCAdmin';
 import HomeAdmin from './admin/HomeAdmin';
+import AdminProfile from './admin/AdminProfile';
+
 
 import './styles/global.css';
 
@@ -88,6 +90,7 @@ const debugComponents = {
   ServicesAdmin,
   KYCAdmin,
   HomeAdmin,
+  AdminProfile,
 };
 
 Object.entries(debugComponents).forEach(([name, component]) => {
@@ -186,6 +189,8 @@ function App() {
                   <Route path="notifications" element={<Notifications />} />
                   <Route path="settings" element={<Settings />} />
                   <Route path="services" element={<ServicesAdmin />} />
+                  <Route path="profile" element={<AdminProfile />} />
+
                 </Route>
 
               </Routes>

@@ -155,6 +155,16 @@ const adminService = {
       console.error("GET RECENT ACTIVITY ERROR:", err);
       return [];
     }
+  },
+
+  // Change user password
+  changeUserPassword: async (userId, newPassword) => {
+    return await api.put(`/admin/users/${userId}/change-password`, { newPassword });
+  },
+
+  // Update admin profile
+  updateAdminProfile: async (profileData) => {
+    return await api.put('/admin/profile', profileData);
   }
 };
 

@@ -7,14 +7,16 @@ import {
   UserCircle,
   Trash2,
   UserCheck,
+  Key,
 } from "lucide-react";
 import adminService from "../services/adminService";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
-  const [pagination, setPagination] = useState({});
   const [loading, setLoading] = useState(true);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [passwordUser, setPasswordUser] = useState(null);
+  const [newPassword, setNewPassword] = useState("");
 
   useEffect(() => {
     fetchUsers();
@@ -26,11 +28,9 @@ const Users = () => {
       const data = await adminService.getUsers();
 
       setUsers(data.users || []);
-      setPagination(data.pagination || {});
     } catch (error) {
       console.error("Failed to fetch users:", error);
       setUsers([]);
-      setPagination({});
     } finally {
       setLoading(false);
     }
@@ -111,6 +111,22 @@ const Users = () => {
       } catch (error) {
         alert("Failed to activate user account");
       }
+    }
+  };
+
+  const handleChangePassword = async () => {
+    if (!newPassword || newPassword.length < 6) {
+      alert("Password must be at least 6 characters long");
+      return;
+    }
+
+    try {
+      await adminService.changeUserPassword(passwordUser._id, newPassword);
+      setPasswordUser(null);
+      setNewPassword("");
+      alert("Password changed successfully!");
+    } catch (error) {
+      alert("Failed to change password");
     }
   };
 
@@ -244,6 +260,17 @@ const Users = () => {
                       title="Edit User"
                     >
                       <Pencil size={20} />
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setPasswordUser(user);
+                        setNewPassword("");
+                      }}
+                      className="text-orange-600 hover:text-orange-800"
+                      title="Change Password"
+                    >
+                      <Key size={20} />
                     </button>
 
                     <button
@@ -500,6 +527,55 @@ const Users = () => {
                 </div>
 
               </form>
+            </div>
+          </div>
+        )}
+
+        {/* PASSWORD CHANGE MODAL */}
+        {passwordUser && (
+          <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+            <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-md">
+
+              <h2 className="text-2xl font-bold mb-6">
+                Change Password: {passwordUser.name}
+              </h2>
+
+              <div className="space-y-4">
+                <div>
+                  <label className="font-medium text-gray-700">New Password</label>
+                  <input
+                    type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="Enter new password"
+                    className="w-full mt-1 border px-3 py-2 rounded-lg"
+                    minLength={6}
+                    required
+                  />
+                  <p className="text-sm text-gray-500 mt-1">
+                    Password must be at least 6 characters long
+                  </p>
+                </div>
+
+                <div className="flex gap-4 mt-6">
+                  <button
+                    onClick={handleChangePassword}
+                    className="flex-1 bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700"
+                  >
+                    Change Password
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setPasswordUser(null);
+                      setNewPassword("");
+                    }}
+                    className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-300"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         )}

@@ -39,3 +39,7 @@ export const payToUser = async (recipientId, amount, note) => {
 export const getTransactionHistory = async () => {
   return api.get('/users/transactions');
 };
+
+export const changePassword = async (currentPassword, newPassword) => {
+  return api.put('/auth/change-password', { currentPassword, newPassword });
+};

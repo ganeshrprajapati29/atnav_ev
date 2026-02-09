@@ -5,14 +5,12 @@ import * as userService from '../services/userService';
 // ALL ICONS OK
 import {
 HiUser,
-HiEnvelope,
-HiDevicePhoneMobile,
 HiStar,
-HiPencil,
 HiCheck,
 HiQrCode,
 HiShare,
 HiArrowDownTray,
+HiKey,
 } from 'react-icons/hi2';
 
 // ✅ React-19 supported QR import
@@ -56,6 +54,14 @@ phone: '',
 dob: '',
 gender: ''
 });
+
+const [showPasswordModal, setShowPasswordModal] = useState(false);
+const [passwordData, setPasswordData] = useState({
+currentPassword: '',
+newPassword: '',
+confirmPassword: ''
+});
+const [changingPassword, setChangingPassword] = useState(false);
 
 useEffect(() => {
 if (user) {
@@ -135,6 +141,34 @@ link.click();
 }
 };
 
+const handleChangePassword = async () => {
+if (passwordData.newPassword !== passwordData.confirmPassword) {
+alert('New passwords do not match');
+return;
+}
+
+if (passwordData.newPassword.length < 6) {
+alert('Password must be at least 6 characters long');
+return;
+}
+
+setChangingPassword(true);
+try {
+await userService.changePassword(passwordData.currentPassword, passwordData.newPassword);
+setShowPasswordModal(false);
+setPasswordData({
+currentPassword: '',
+newPassword: '',
+confirmPassword: ''
+});
+alert('Password changed successfully!');
+} catch (error) {
+alert(error.response?.data?.message || error.message || 'Password change failed');
+} finally {
+setChangingPassword(false);
+}
+};
+
 if (loading) {
 return ( <div className="min-h-screen flex items-center justify-center"> <div className="w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"></div> </div>
 );
@@ -172,12 +206,21 @@ return ( <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-whit
           </span>
         </div>
 
-        <button
-          onClick={() => setEditing(!editing)}
-          className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition"
-        >
-          {editing ? "Cancel Edit" : "Edit Profile"}
-        </button>
+        <div className="flex gap-4 justify-center mt-4">
+          <button
+            onClick={() => setEditing(!editing)}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition"
+          >
+            {editing ? "Cancel Edit" : "Edit Profile"}
+          </button>
+
+          <button
+            onClick={() => setShowPasswordModal(true)}
+            className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg font-semibold transition flex items-center gap-2"
+          >
+            <HiKey size={16} /> Change Password
+          </button>
+        </div>
 
         {editing && (
           <button
@@ -328,6 +371,86 @@ return ( <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-whit
           </button>
         </div>
       </div>
+
+      {/* PASSWORD CHANGE MODAL */}
+      {showPasswordModal && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+          <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-md">
+
+            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+              <HiKey size={24} />
+              Change Password
+            </h2>
+
+            <div className="space-y-4">
+              <div>
+                <label className="font-medium text-gray-700">Current Password</label>
+                <input
+                  type="password"
+                  value={passwordData.currentPassword}
+                  onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
+                  placeholder="Enter current password"
+                  className="w-full mt-1 border px-3 py-2 rounded-lg"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="font-medium text-gray-700">New Password</label>
+                <input
+                  type="password"
+                  value={passwordData.newPassword}
+                  onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
+                  placeholder="Enter new password"
+                  className="w-full mt-1 border px-3 py-2 rounded-lg"
+                  minLength={6}
+                  required
+                />
+                <p className="text-sm text-gray-500 mt-1">
+                  Password must be at least 6 characters long
+                </p>
+              </div>
+
+              <div>
+                <label className="font-medium text-gray-700">Confirm New Password</label>
+                <input
+                  type="password"
+                  value={passwordData.confirmPassword}
+                  onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
+                  placeholder="Confirm new password"
+                  className="w-full mt-1 border px-3 py-2 rounded-lg"
+                  minLength={6}
+                  required
+                />
+              </div>
+
+              <div className="flex gap-4 mt-6">
+                <button
+                  onClick={handleChangePassword}
+                  disabled={changingPassword}
+                  className="flex-1 bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 disabled:opacity-50"
+                >
+                  {changingPassword ? "Changing..." : "Change Password"}
+                </button>
+
+                <button
+                  onClick={() => {
+                    setShowPasswordModal(false);
+                    setPasswordData({
+                      currentPassword: '',
+                      newPassword: '',
+                      confirmPassword: ''
+                    });
+                  }}
+                  className="flex-1 bg-gray-200 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-300"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
 

@@ -81,6 +81,12 @@ const Payment = () => {
   // Check if user is new (paymentStatus pending) - show WhatsApp immediately
   const isNewUser = user?.paymentStatus === "pending";
 
+  useEffect(() => {
+    if (isNewUser) {
+      setShowWhatsApp(true);
+    }
+  }, [isNewUser]);
+
   // Razorpay payment commented out as per requirements
   /*
   const handlePayment = async () => {
@@ -219,8 +225,8 @@ const Payment = () => {
             <p className="text-xs text-gray-500 mt-1">payment</p>
           </div>
 
-          {/* Payment Method Selection - Only show for existing users */}
-          {!upiPaymentStarted && !isNewUser && (
+          {/* Payment Method Selection */}
+          {!upiPaymentStarted && (
             <div className="mb-6">
               <h3 className="font-semibold text-gray-800 mb-3">Choose Payment Method</h3>
               <div className="space-y-3">
@@ -285,12 +291,15 @@ const Payment = () => {
             <div className="text-center">
               <div className="mb-6 p-4 bg-green-50 rounded-lg">
                 <MessageCircle className="text-green-600 mx-auto mb-3" size={32} />
-                <h3 className="font-semibold text-gray-800 mb-2">Payment Completed?</h3>
+                <h3 className="font-semibold text-gray-800 mb-2">Payment Done?</h3>
+                <p className="text-sm text-gray-600 mb-2">
+                  After payment, please WhatsApp this number with full payment details. Your ID will be activated after the payment screen.
+                </p>
                 <p className="text-sm text-gray-600 mb-4">
-                  Send your payment screenshot and transaction details to WhatsApp for account activation.
+                  भुगतान के बाद, कृपया इस नंबर पर पूरे भुगतान विवरण के साथ WhatsApp करें। भुगतान स्क्रीन के बाद आपका ID सक्रिय हो जाएगा।
                 </p>
                 <div className="bg-white p-3 rounded-lg mb-4">
-                  <p className="font-mono text-lg font-semibold text-green-600">+91 9876543210</p>
+                  <p className="font-mono text-lg font-semibold text-green-600">+91 9953701057</p>
                   <p className="text-xs text-gray-500">WhatsApp Number</p>
                 </div>
                 <button
