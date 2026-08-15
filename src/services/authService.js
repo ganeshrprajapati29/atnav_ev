@@ -24,8 +24,8 @@ export const resetPassword = async (token, password) => {
   return api.post('/auth/reset-password', { token, password });
 };
 
-export const createPaymentOrder = async (amount) => {
-  return api.post('/auth/create-payment-order', { amount });
+export const createPaymentOrder = async (amount, utrNumber = '') => {
+  return api.post('/auth/create-payment-order', { amount, utrNumber });
 };
 
 export const verifyPayment = async (paymentData) => {

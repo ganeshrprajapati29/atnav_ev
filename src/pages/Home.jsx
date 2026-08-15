@@ -417,11 +417,13 @@ const Home = () => {
                       <thead>
                         <tr className="bg-emerald-600 text-white">
                           <th className="px-4 py-3 text-left font-semibold border-r border-emerald-500">Sr. No.</th>
-                          <th className="px-4 py-3 text-left font-semibold border-r border-emerald-500">Date</th>
-                          <th className="px-4 py-3 text-left font-semibold border-r border-emerald-500">Price (₹)</th>
+                          <th className="px-4 py-3 text-left font-semibold border-r border-emerald-500">Year</th>
+                          <th className="px-4 py-3 text-left font-semibold border-r border-emerald-500">Price</th>
+                          <th className="px-4 py-3 text-left font-semibold border-r border-emerald-500">Value @Rs.100</th>
                           <th className="px-4 py-3 text-left font-semibold border-r border-emerald-500">Sr. No.</th>
-                          <th className="px-4 py-3 text-left font-semibold border-r border-emerald-500">Date</th>
-                          <th className="px-4 py-3 text-left font-semibold">Price (₹)</th>
+                          <th className="px-4 py-3 text-left font-semibold border-r border-emerald-500">Year</th>
+                          <th className="px-4 py-3 text-left font-semibold border-r border-emerald-500">Price</th>
+                          <th className="px-4 py-3 text-left font-semibold">Value @Rs.100</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -433,12 +435,14 @@ const Home = () => {
                             <tr key={index} className={index % 2 === 0 ? 'bg-white hover:bg-gray-50' : 'bg-gray-50 hover:bg-white'}>
                               <td className="px-4 py-3 border-r border-gray-200 font-medium">{row.srNo}</td>
                               <td className="px-4 py-3 border-r border-gray-200">{row.date}</td>
-                              <td className="px-4 py-3 border-r border-gray-200 text-emerald-600 font-semibold">₹{row.price}</td>
+                              <td className="px-4 py-3 border-r border-gray-200 text-emerald-600 font-semibold">{row.price}</td>
+                              <td className="px-4 py-3 border-r border-gray-200 font-semibold">{row.valueAt100 || row.price * 10}</td>
                               {secondRow && (
                                 <>
                                   <td className="px-4 py-3 border-r border-gray-200 font-medium">{secondRow.srNo}</td>
                                   <td className="px-4 py-3 border-r border-gray-200">{secondRow.date}</td>
-                                  <td className="px-4 py-3 text-emerald-600 font-semibold">₹{secondRow.price}</td>
+                                  <td className="px-4 py-3 border-r border-gray-200 text-emerald-600 font-semibold">{secondRow.price}</td>
+                                  <td className="px-4 py-3 text-emerald-600 font-semibold">{secondRow.valueAt100 || secondRow.price * 10}</td>
                                 </>
                               )}
                             </tr>

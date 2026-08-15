@@ -85,6 +85,24 @@ const adminService = {
     }
   },
 
+  getCoinPurchases: async () => {
+    try {
+      const data = await api.get('/admin/coin-purchases');
+      return Array.isArray(data) ? data : [];
+    } catch (err) {
+      console.error("GET COIN PURCHASES ERROR:", err);
+      return [];
+    }
+  },
+
+  approveCoinPurchase: async (purchaseId, adminNote = '') => {
+    return await api.put(`/admin/coin-purchases/${purchaseId}/approve`, { adminNote });
+  },
+
+  rejectCoinPurchase: async (purchaseId, adminNote = '') => {
+    return await api.put(`/admin/coin-purchases/${purchaseId}/reject`, { adminNote });
+  },
+
   // Get settings
   getSettings: async () => {
     try {
