@@ -109,7 +109,7 @@ const Users = () => {
         fetchUsers();
         alert(`User ${userName} activated successfully! Activation email sent to ${userEmail}.`);
       } catch (error) {
-        alert("Failed to activate user account");
+        alert(error.response?.data?.message || "Failed to activate user account");
       }
     }
   };

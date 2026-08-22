@@ -41,9 +41,7 @@ const onboardingService = {
     try {
       const formData = new FormData();
       formData.append('image', file);
-      return await api.post('/onboarding-content/upload-image', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-      });
+      return await api.post('/onboarding-content/upload-image', formData);
     } catch (error) {
       console.error('Error uploading onboarding image:', error);
       throw error;

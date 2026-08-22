@@ -54,7 +54,7 @@ const fontWeights = ['normal', 'bold', 'extrabold'];
 const usesContent = (type) => ['paragraph', 'bullets', 'note', 'callCta', 'promo'].includes(type);
 const usesBenefits = (type) => ['features', 'steps', 'promo'].includes(type);
 const usesChart = (type) => type === 'chart';
-const usesImages = (type) => type === 'imageSlider';
+const usesImages = () => true;
 const usesIcon = (type) => ['hero', 'paragraph', 'callCta'].includes(type);
 
 const typeIcon = (type) => (blockTypes.find((t) => t.value === type)?.icon) || Layers;
@@ -595,7 +595,9 @@ const OnboardingAdmin = () => {
               {/* Images */}
               {usesImages(formData.type) && (
                 <div className="border-t pt-4">
-                  <label className="text-sm font-medium text-gray-700 mb-2 block">Slider images</label>
+                  <label className="text-sm font-medium text-gray-700 mb-2 block">
+                    Images / banner carousel
+                  </label>
                   {formData.images.map((img, i) => (
                     <div key={i} className="flex items-center gap-2 mb-2 border border-gray-200 rounded-lg p-2">
                       <img src={img.url} alt={img.alt || ''} className="w-12 h-12 rounded object-cover" onError={(e) => { e.target.style.display = 'none'; }} />

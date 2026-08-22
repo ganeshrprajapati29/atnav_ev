@@ -22,6 +22,11 @@ const adminService = {
     return await api.post(`/admin/users/${userId}/send-certificate`);
   },
 
+  // Activate user account after manual admin approval
+  activateUserAccount: async (userId) => {
+    return await api.post(`/admin/users/${userId}/activate`);
+  },
+
   // Update user
   updateUser: async (userId, updates) => {
     return await api.put(`/admin/users/${userId}`, updates);
