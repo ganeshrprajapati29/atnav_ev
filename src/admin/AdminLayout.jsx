@@ -15,7 +15,8 @@ import {
   LogOut,
   Menu,
   X,
-  Edit
+  Edit,
+  Layers
 } from 'lucide-react';
 
 import { useAuth } from '../hooks/useAuth';
@@ -28,6 +29,7 @@ const AdminLayout = () => {
   const menuItems = [
     { path: '/admin', label: 'Dashboard', icon: Home },
     { path: '/admin/home', label: 'Home Content', icon: Edit },
+    { path: '/admin/onboarding', label: 'Onboarding Content', icon: Layers },
     { path: '/admin/users', label: 'Users', icon: Users },
     { path: '/admin/profile', label: 'Profile', icon: Users },
     { path: '/admin/add-user', label: 'Add User', icon: UserPlus },

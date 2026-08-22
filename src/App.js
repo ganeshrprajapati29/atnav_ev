@@ -46,6 +46,7 @@ import RewardsAdmin from './admin/RewardsAdmin';
 import Reports from './admin/Reports';
 import KYCAdmin from './admin/KYCAdmin';
 import HomeAdmin from './admin/HomeAdmin';
+import OnboardingAdmin from './admin/OnboardingAdmin';
 import AdminProfile from './admin/AdminProfile';
 
 
@@ -90,6 +91,7 @@ const debugComponents = {
   ServicesAdmin,
   KYCAdmin,
   HomeAdmin,
+  OnboardingAdmin,
   AdminProfile,
 };
 
@@ -175,6 +177,7 @@ function App() {
                 >
                   <Route index element={<AdminDashboard />} />
                   <Route path="home" element={<HomeAdmin />} />
+                  <Route path="onboarding" element={<OnboardingAdmin />} />
                   <Route path="users" element={<Users />} />
                   <Route path="add-user" element={<AddUser />} />
                   <Route path="user-details" element={<UserDetails />} />
