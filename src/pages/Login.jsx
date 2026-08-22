@@ -40,7 +40,7 @@ const Login = () => {
     try {
       await login(formData.email, formData.password);
     } catch (err) {
-      setError(err.message || 'Login failed. Please try again.');
+      setError(err.response?.data?.message || err.message || 'Login failed. Please try again.');
     }
   };
 
@@ -123,7 +123,7 @@ const Login = () => {
                   required
                   value={formData.password}
                   onChange={handleChange}
-                  placeholder="••••••••"
+                  placeholder="********"
                   className="w-full pl-11 pr-12 py-3 border border-white/60 bg-white/60 rounded-xl focus:outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-300 transition-all shadow-sm"
                 />
 
@@ -153,7 +153,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 disabled:from-gray-400 disabled:to-gray-500 text-white font-bold py-3 rounded-xl transition-all transform hover:scale-[1.03] shadow-xl flex items-center justify-center gap-3"
+              className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-bold py-3 rounded-xl transition-all transform hover:scale-[1.03] disabled:hover:scale-100 shadow-xl flex items-center justify-center gap-3"
             >
               {loading ? (
                 <>

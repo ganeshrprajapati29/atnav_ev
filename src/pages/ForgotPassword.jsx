@@ -30,7 +30,7 @@ const ForgotPassword = () => {
       setSubmitted(true);
       toast.success("Password reset email sent! Check your inbox.");
     } catch (err) {
-      setError(err.message || "Failed to send reset email");
+      setError(err.response?.data?.message || err.message || "Failed to send reset email");
     } finally {
       setLoading(false);
     }
@@ -164,7 +164,7 @@ const ForgotPassword = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:scale-[1.03] disabled:opacity-60 text-white font-bold py-3 rounded-xl shadow-lg flex items-center justify-center gap-2 transition"
+              className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:scale-[1.03] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100 text-white font-bold py-3 rounded-xl shadow-lg flex items-center justify-center gap-2 transition"
             >
               {loading ? (
                 <>

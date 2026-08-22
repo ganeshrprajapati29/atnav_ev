@@ -33,6 +33,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
+    setLoading(true);
     try {
       const data = await authService.login(email, password);
       tokenService.setToken(data.token);
@@ -54,10 +55,13 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       toast.error(error.response?.data?.message || error.message || 'Login failed');
       throw error;
+    } finally {
+      setLoading(false);
     }
   };
 
   const register = async (userData) => {
+    setLoading(true);
     try {
       const data = await authService.register(userData);
       tokenService.setToken(data.token);
@@ -67,6 +71,8 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       toast.error(error.response?.data?.message || 'Registration failed');
       throw error;
+    } finally {
+      setLoading(false);
     }
   };
 

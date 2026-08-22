@@ -60,7 +60,7 @@ const ResetPassword = () => {
 
       setTimeout(() => navigate("/login"), 3000);
     } catch (err) {
-      setError(err.message || "Failed to reset password");
+      setError(err.response?.data?.message || err.message || "Failed to reset password");
     } finally {
       setLoading(false);
     }
@@ -178,7 +178,7 @@ const ResetPassword = () => {
                 <input
                   name="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="••••••••"
+                  placeholder="********"
                   value={formData.password}
                   required
                   onChange={handleChange}
@@ -210,7 +210,7 @@ const ResetPassword = () => {
                 <input
                   name="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
-                  placeholder="••••••••"
+                  placeholder="********"
                   required
                   value={formData.confirmPassword}
                   onChange={handleChange}
@@ -231,7 +231,7 @@ const ResetPassword = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:scale-[1.03] transition-all text-white font-bold rounded-xl shadow-lg flex items-center justify-center gap-2"
+              className="w-full py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed hover:scale-[1.03] disabled:hover:scale-100 transition-all text-white font-bold rounded-xl shadow-lg flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>

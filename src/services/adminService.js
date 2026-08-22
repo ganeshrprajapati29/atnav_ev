@@ -124,6 +124,21 @@ const adminService = {
     return await api.put(`/admin/settings/${key}`, updates);
   },
 
+  getAppConfig: async () => {
+    return await api.get('/app-config');
+  },
+
+  updateAppMaintenance: async (value) => {
+    return await api.put('/settings/app_maintenance', {
+      value: {
+        ...value,
+        updatedAt: new Date().toISOString()
+      },
+      description: 'Controls app-only maintenance mode',
+      category: 'app'
+    });
+  },
+
   // Get daily report
   getDailyReport: async (date) => {
     return await api.get(`/reports/daily?date=${date}`);

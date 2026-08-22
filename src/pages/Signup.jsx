@@ -100,7 +100,7 @@ const Signup = () => {
       // Registration successful, redirect to payment
       window.location.href = "/payment?amount=100";
     } catch (err) {
-      setError(err.message || "Registration failed. Please try again.");
+      setError(err.response?.data?.message || err.message || "Registration failed. Please try again.");
     }
   };
 
@@ -271,7 +271,7 @@ const Signup = () => {
                   type={showPassword ? "text" : "password"}
                   required
                   value={formData.password}
-                  placeholder="••••••••"
+                  placeholder="********"
                   onChange={handleChange}
                   className="w-full pl-11 pr-12 py-3 rounded-xl bg-white/80 border"
                 />
@@ -312,7 +312,7 @@ const Signup = () => {
                   type={showConfirmPassword ? "text" : "password"}
                   required
                   value={formData.confirmPassword}
-                  placeholder="••••••••"
+                  placeholder="********"
                   onChange={handleChange}
                   className="w-full pl-11 pr-12 py-3 rounded-xl bg-white/80 border"
                 />
@@ -337,8 +337,8 @@ const Signup = () => {
                   }`}
                 >
                   {formData.confirmPassword === formData.password
-                    ? "✓ Passwords match"
-                    : "✗ Passwords do not match"}
+                    ? "Passwords match"
+                    : "Passwords do not match"}
                 </p>
               )}
             </div>
@@ -348,7 +348,7 @@ const Signup = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white font-bold rounded-xl shadow-xl hover:scale-[1.03] transition-all flex items-center justify-center gap-3"
+                className="w-full py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-bold rounded-xl shadow-xl hover:scale-[1.03] disabled:hover:scale-100 transition-all flex items-center justify-center gap-3"
               >
                 {loading ? (
                   <>
