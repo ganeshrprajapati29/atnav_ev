@@ -31,8 +31,11 @@ import {
   Wallet,
   QrCode,
   UserPlus,
-  Building
+  Building,
+  Download,
+  ExternalLink
 } from 'lucide-react';
+import { FaFacebookF, FaInstagram, FaYoutube, FaXTwitter } from 'react-icons/fa6';
 
 // Icon mapping
 const iconComponents = {
@@ -61,6 +64,97 @@ const iconComponents = {
   'building': Building,
   'zap': Zap
 };
+
+const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.atvanev.atvancoin';
+
+const socialLinks = [
+  { label: 'Instagram', href: 'https://www.instagram.com/atvancoin', Icon: FaInstagram },
+  { label: 'Facebook', href: 'https://www.facebook.com/atvancoin', Icon: FaFacebookF },
+  { label: 'YouTube', href: 'https://www.youtube.com/channel/UC8DuhdcMdZWIvVloPtA1Few', Icon: FaYoutube },
+  { label: 'X', href: 'https://x.com/atvancoin', Icon: FaXTwitter },
+];
+
+const promoImages = [
+  { src: '/promo/atvan-wealth-banner.png', alt: 'Atvan Coin wealth platform banner' },
+  { src: '/promo/atvan-price-chart.png', alt: 'Atvan projected price chart' },
+  { src: '/promo/atvan-referral-app.jpeg', alt: 'Atvan Coin referral app screen' },
+];
+
+const HindiPromoSection = () => (
+  <section className="py-20 bg-white">
+    <div className="container mx-auto px-4">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-10 items-center">
+          <div>
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 text-emerald-700 font-semibold">
+              <Sparkles className="w-4 h-4" />
+              ATVAN Coin App
+            </span>
+            <h2 className="mt-5 text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+              आज ही ATVAN से जुड़ें
+            </h2>
+            <p className="mt-5 text-xl text-gray-700 leading-relaxed">
+              छोटा निवेश, बेहतर ग्रोथ और आसान वॉलेट मैनेजमेंट के लिए ऐप डाउनलोड करें।
+              Referral, QR, wallet और reward tracking सब एक जगह।
+            </p>
+
+            <div className="mt-8 flex flex-col sm:flex-row gap-4">
+              <a
+                href={PLAY_STORE_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 bg-emerald-700 text-white px-7 py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-emerald-800 transition-all hover:-translate-y-0.5"
+              >
+                <Download className="w-5 h-5" />
+                App Download
+              </a>
+              <a
+                href={socialLinks[2].href}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 border border-emerald-200 text-emerald-800 px-7 py-4 rounded-xl font-bold text-lg hover:bg-emerald-50 transition-colors"
+              >
+                YouTube Videos
+                <ExternalLink className="w-5 h-5" />
+              </a>
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              {socialLinks.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-gray-900 text-white hover:bg-emerald-700 transition-colors"
+                >
+                  <Icon className="w-5 h-5" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            <img
+              src={promoImages[0].src}
+              alt={promoImages[0].alt}
+              className="sm:col-span-2 w-full rounded-2xl shadow-xl border border-emerald-100 object-cover"
+            />
+            {promoImages.slice(1).map((image) => (
+              <img
+                key={image.src}
+                src={image.src}
+                alt={image.alt}
+                className="w-full h-full max-h-[420px] rounded-2xl shadow-lg border border-emerald-100 object-cover object-top"
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
 
 const Home = () => {
   const { user } = useAuth();
@@ -293,6 +387,9 @@ const Home = () => {
         );
 
       case 'tiers':
+        return null;
+
+      case 'tiers-hidden':
         return (
           <section key={section.id} className="py-20 bg-gradient-to-b from-gray-50 to-white">
             <div className="container mx-auto px-4">
@@ -594,13 +691,15 @@ const Home = () => {
       <Navbar />
       
       {homeContent.sections
-        .filter(section => section.isActive !== false)
+        .filter(section => section.isActive !== false && section.type !== 'tiers')
         .sort((a, b) => (a.order || 0) - (b.order || 0))
         .map((section) => (
           <React.Fragment key={section.id}>
             {renderSection(section)}
           </React.Fragment>
         ))}
+
+      <HindiPromoSection />
       
       <Footer />
     </div>
