@@ -13,7 +13,6 @@ import {
   Sparkles,
   Trophy as Award,
   ChevronRight,
-  Truck as Bike,
   Zap,
   TrendingUp,
   Trophy,
@@ -76,34 +75,33 @@ const socialLinks = [
 
 const promoImages = [
   { src: '/promo/atvan-wealth-banner.png', alt: 'Atvan Coin wealth platform banner' },
-  { src: '/promo/atvan-price-chart.png', alt: 'Atvan projected price chart' },
-  { src: '/promo/atvan-referral-app.jpeg', alt: 'Atvan Coin referral app screen' },
+  { src: '/promo/hindi-onboarding-slide.jpeg', alt: 'Atvan Coin Hindi onboarding offer' },
 ];
 
 const HindiPromoSection = () => (
-  <section className="py-20 bg-white">
-    <div className="container mx-auto px-4">
+  <section className="py-16 md:py-20 bg-white overflow-hidden">
+    <div className="container mx-auto px-4 sm:px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-10 items-center">
-          <div>
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 text-emerald-700 font-semibold">
+        <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-12 items-center">
+          <div className="max-w-xl">
+            <span className="inline-flex max-w-full items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-700">
               <Sparkles className="w-4 h-4" />
               ATVAN Coin App
             </span>
-            <h2 className="mt-5 text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
+            <h2 className="mt-5 text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight break-words">
               आज ही ATVAN से जुड़ें
             </h2>
-            <p className="mt-5 text-xl text-gray-700 leading-relaxed">
+            <p className="mt-5 text-base sm:text-lg text-gray-700 leading-8 break-words">
               छोटा निवेश, बेहतर ग्रोथ और आसान वॉलेट मैनेजमेंट के लिए ऐप डाउनलोड करें।
               Referral, QR, wallet और reward tracking सब एक जगह।
             </p>
 
-            <div className="mt-8 flex flex-col sm:flex-row gap-4">
+            <div className="mt-8 grid sm:inline-grid sm:grid-cols-2 gap-3 sm:gap-4">
               <a
                 href={PLAY_STORE_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-emerald-700 text-white px-7 py-4 rounded-xl font-bold text-lg shadow-lg hover:bg-emerald-800 transition-all hover:-translate-y-0.5"
+                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 py-3 text-base font-bold text-white shadow-lg transition-all hover:-translate-y-0.5 hover:bg-emerald-800 sm:px-6"
               >
                 <Download className="w-5 h-5" />
                 App Download
@@ -112,14 +110,14 @@ const HindiPromoSection = () => (
                 href={socialLinks[2].href}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 border border-emerald-200 text-emerald-800 px-7 py-4 rounded-xl font-bold text-lg hover:bg-emerald-50 transition-colors"
+                className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl border border-emerald-200 px-5 py-3 text-base font-bold text-emerald-800 transition-colors hover:bg-emerald-50 sm:px-6"
               >
                 YouTube Videos
                 <ExternalLink className="w-5 h-5" />
               </a>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-wrap gap-3" aria-label="Atvan Coin social links">
               {socialLinks.map(({ label, href, Icon }) => (
                 <a
                   key={label}
@@ -135,20 +133,35 @@ const HindiPromoSection = () => (
             </div>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-4">
-            <img
-              src={promoImages[0].src}
-              alt={promoImages[0].alt}
-              className="sm:col-span-2 w-full rounded-2xl shadow-xl border border-emerald-100 object-cover"
-            />
-            {promoImages.slice(1).map((image) => (
+          <div className="grid gap-4">
+            <div className="overflow-hidden rounded-2xl border border-emerald-100 bg-emerald-50 shadow-xl">
               <img
-                key={image.src}
-                src={image.src}
-                alt={image.alt}
-                className="w-full h-full max-h-[420px] rounded-2xl shadow-lg border border-emerald-100 object-cover object-top"
+                src={promoImages[0].src}
+                alt={promoImages[0].alt}
+                className="block w-full aspect-[16/7] object-cover object-center"
               />
-            ))}
+            </div>
+            <div className="grid sm:grid-cols-[minmax(0,0.72fr)_minmax(220px,0.28fr)] gap-4 items-stretch">
+              <div className="rounded-2xl border border-emerald-100 bg-gradient-to-br from-emerald-900 to-emerald-700 p-5 sm:p-6 text-white shadow-lg">
+                <div className="flex items-center gap-3">
+                  <Shield className="h-10 w-10 rounded-full bg-white/10 p-2 text-yellow-300" />
+                  <div>
+                    <p className="text-sm font-semibold text-emerald-100">Secure rewards platform</p>
+                    <p className="mt-1 text-2xl font-extrabold leading-tight">Earn. Grow. Redeem.</p>
+                  </div>
+                </div>
+                <p className="mt-4 text-sm sm:text-base leading-7 text-emerald-50">
+                  App install करें, referral code share करें, और wallet rewards को आसानी से track करें।
+                </p>
+              </div>
+              <div className="overflow-hidden rounded-2xl border border-emerald-100 bg-stone-50 shadow-lg">
+                <img
+                  src={promoImages[1].src}
+                  alt={promoImages[1].alt}
+                  className="block h-full max-h-[360px] w-full object-cover object-top sm:max-h-none"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -201,7 +214,7 @@ const Home = () => {
   const renderSection = (section) => {
     if (!section) return null;
     
-    const { type, title, subtitle, content, images, styles, stats, benefits, steps, tiers, sharePriceData } = section;
+    const { type, title, subtitle, content, stats, benefits, steps, tiers, sharePriceData } = section;
 
     switch (type) {
       case 'hero':
