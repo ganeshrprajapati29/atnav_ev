@@ -28,8 +28,8 @@ export const getAppConfig = async () => {
   return api.get('/app-config');
 };
 
-export const createPaymentOrder = async (amount, utrNumber = '') => {
-  return api.post('/auth/create-payment-order', { amount, utrNumber });
+export const createPaymentOrder = async (amount) => {
+  return api.post('/auth/create-payment-order', { amount });
 };
 
 export const verifyPayment = async (paymentData) => {

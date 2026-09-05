@@ -72,7 +72,7 @@ const Transactions = () => {
                   <th className="px-4 py-3 font-medium text-gray-700">Amount</th>
                   <th className="px-4 py-3 font-medium text-gray-700">Coins</th>
                   <th className="px-4 py-3 font-medium text-gray-700">Daily Growth</th>
-                  <th className="px-4 py-3 font-medium text-gray-700">UTR</th>
+                  <th className="px-4 py-3 font-medium text-gray-700">Payment Ref</th>
                   <th className="px-4 py-3 font-medium text-gray-700">Status</th>
                   <th className="px-4 py-3 font-medium text-gray-700">Date</th>
                   <th className="px-4 py-3 font-medium text-gray-700">Action</th>
@@ -88,7 +88,7 @@ const Transactions = () => {
                     <td className="px-4 py-3 font-semibold">₹{purchase.amount}</td>
                     <td className="px-4 py-3 font-semibold">{purchase.baseCoins}</td>
                     <td className="px-4 py-3">{Number(purchase.dailyGrowthCoins || 0).toFixed(4)}</td>
-                    <td className="px-4 py-3 text-sm">{purchase.utrNumber || '-'}</td>
+                    <td className="px-4 py-3 text-sm">{purchase.razorpayPaymentId || purchase.utrNumber || purchase.razorpayOrderId || '-'}</td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-1 rounded text-xs font-medium ${
                         purchase.status === 'approved' ? 'bg-green-100 text-green-700' :

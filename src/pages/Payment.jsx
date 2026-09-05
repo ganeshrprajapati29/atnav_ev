@@ -1,132 +1,148 @@
 import React, { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { AlertCircle, CheckCircle, CreditCard, ShieldCheck } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
-import { createPaymentOrder } from "../services/authService";
-import { AlertCircle, CreditCard, MessageCircle, QrCode, Send } from "lucide-react";
-import { QRCodeCanvas } from "qrcode.react";
+import { createPaymentOrder, verifyPayment } from "../services/authService";
 
-const UPI_ID = "ciborigroup01@fbl";
-const WHATSAPP = "9953701057";
+const loadRazorpay = () =>
+  new Promise((resolve) => {
+    if (window.Razorpay) return resolve(true);
+    const script = document.createElement("script");
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
 
 const Payment = () => {
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
-  const [upiPaymentStarted, setUpiPaymentStarted] = useState(false);
-  const [submitted, setSubmitted] = useState(null);
-  const [utrNumber, setUtrNumber] = useState("");
+  const [success, setSuccess] = useState(null);
 
   const amount = parseInt(searchParams.get("amount"), 10) || 100;
   const coins = amount / 10;
   const dailyGrowth = ((amount * 0.05) / 365).toFixed(4);
 
-  const submitPaymentRequest = async () => {
+  const startPayment = async () => {
     try {
       setLoading(true);
-      const data = await createPaymentOrder(amount, utrNumber);
-      setSubmitted(data);
-      alert("Payment request submitted. Admin approval ke baad coins balance me add honge.");
+      const ready = await loadRazorpay();
+      if (!ready) {
+        alert("Razorpay checkout load nahi ho paya. Please internet check karke retry karein.");
+        return;
+      }
+
+      const data = await createPaymentOrder(amount);
+      const options = {
+        key: data.keyId,
+        amount: data.order.amount,
+        currency: data.order.currency,
+        name: "ATVAN Coin",
+        description: `${coins} ATVAN coins`,
+        order_id: data.order.id,
+        prefill: {
+          name: user?.name || "",
+          email: user?.email || "",
+          contact: user?.phone || ""
+        },
+        notes: {
+          purchaseId: data.purchase?._id,
+          userId: user?._id,
+          coins
+        },
+        theme: { color: "#087F5B" },
+        handler: async (response) => {
+          try {
+            const verified = await verifyPayment({
+              ...response,
+              purchaseId: data.purchase?._id
+            });
+            if (verified.user) updateUser(verified.user);
+            setSuccess(verified);
+          } catch (error) {
+            alert(error.response?.data?.message || "Payment verify nahi ho paya.");
+          }
+        },
+        modal: {
+          ondismiss: () => setLoading(false)
+        }
+      };
+
+      const razorpay = new window.Razorpay(options);
+      razorpay.on("payment.failed", (response) => {
+        alert(response.error?.description || "Payment failed. Please try again.");
+        setLoading(false);
+      });
+      razorpay.open();
     } catch (error) {
-      alert(error.response?.data?.message || "Payment request submit nahi ho paya.");
+      alert(error.response?.data?.message || "Payment start nahi ho paya.");
     } finally {
       setLoading(false);
     }
   };
 
+  if (success) {
+    return (
+      <div className="min-h-screen bg-emerald-50 flex items-center justify-center px-4 py-12">
+        <div className="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-xl">
+          <CheckCircle className="mx-auto mb-4 text-emerald-600" size={54} />
+          <h1 className="text-2xl font-bold text-gray-900">Payment Successful</h1>
+          <p className="mt-2 text-gray-600">Coins automatically wallet me credit ho gaye hain.</p>
+          <div className="mt-5 rounded-lg bg-emerald-50 p-4 text-sm text-emerald-800">
+            <p><strong>Coins:</strong> {success.purchase?.baseCoins || coins}</p>
+            <p><strong>Payment ID:</strong> {success.purchase?.razorpayPaymentId || "-"}</p>
+          </div>
+          <button
+            onClick={() => navigate("/user/dashboard")}
+            className="mt-6 w-full rounded-xl bg-emerald-600 px-4 py-3 font-bold text-white hover:bg-emerald-700"
+          >
+            Go to Dashboard
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-emerald-50 flex items-center justify-center py-12 px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="inline-block mb-4">
-            <div className="w-16 h-16 bg-emerald-100 rounded-lg flex items-center justify-center shadow-lg">
-              <CreditCard className="text-emerald-600" size={32} />
-            </div>
+          <div className="inline-flex h-16 w-16 items-center justify-center rounded-lg bg-emerald-100 shadow-lg">
+            <CreditCard className="text-emerald-600" size={32} />
           </div>
-          <h1 className="text-3xl font-bold text-emerald-700 mb-2">Buy Coins</h1>
-          <p className="text-gray-600">Manual UPI payment approval</p>
+          <h1 className="mt-4 text-3xl font-bold text-emerald-700">Buy Coins</h1>
+          <p className="text-gray-600">Secure automatic payment by Razorpay</p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-          <div className="mb-6 p-4 bg-emerald-50 rounded-lg">
-            <h3 className="font-semibold text-emerald-800 mb-2">Account Details</h3>
+        <div className="rounded-2xl border border-gray-100 bg-white p-8 shadow-xl">
+          <div className="mb-6 rounded-lg bg-emerald-50 p-4">
+            <h3 className="mb-2 font-semibold text-emerald-800">Account Details</h3>
             <p className="text-sm text-emerald-700"><strong>Name:</strong> {user?.name}</p>
             <p className="text-sm text-emerald-700"><strong>Email:</strong> {user?.email}</p>
             <p className="text-sm text-emerald-700"><strong>User ID:</strong> {user?.uniqueId}</p>
           </div>
 
-          <div className="mb-6 p-4 bg-gray-50 rounded-lg text-center">
-            <p className="text-3xl font-bold text-gray-900">₹{amount}</p>
-            <p className="text-sm text-gray-600 mt-1">{coins} coins after approval</p>
+          <div className="mb-6 rounded-lg bg-gray-50 p-4 text-center">
+            <p className="text-3xl font-bold text-gray-900">Rs.{amount}</p>
+            <p className="mt-1 text-sm text-gray-600">{coins} coins instant credit after payment</p>
             <p className="text-xs text-gray-500">Daily growth: {dailyGrowth} coins</p>
           </div>
 
-          {!upiPaymentStarted && (
-            <button
-              onClick={() => setUpiPaymentStarted(true)}
-              className="w-full p-4 border-2 border-blue-200 rounded-lg hover:border-blue-400 transition-colors flex items-center gap-3 mb-6"
-            >
-              <QrCode className="text-blue-600" size={24} />
-              <div className="text-left">
-                <p className="font-semibold text-gray-800">Scan QR and Pay</p>
-                <p className="text-sm text-gray-600">Submit request after payment</p>
-              </div>
-            </button>
-          )}
-
-          {upiPaymentStarted && (
-            <div className="text-center">
-              <h3 className="font-semibold text-gray-800 mb-4">Scan QR Code to Pay</h3>
-              <div className="flex justify-center mb-4">
-                <QRCodeCanvas
-                  value={`upi://pay?pa=${UPI_ID}&pn=CiboriGroup&am=${amount}&cu=INR&tn=Atvan Coin Purchase`}
-                  size={210}
-                  level="H"
-                  includeMargin
-                  className="rounded-lg shadow-lg"
-                />
-              </div>
-              <p className="text-sm text-gray-600 mb-4">UPI ID: {UPI_ID}</p>
-              <input
-                value={utrNumber}
-                onChange={(e) => setUtrNumber(e.target.value)}
-                placeholder="UTR / transaction number (optional)"
-                className="w-full border border-gray-200 rounded-lg px-3 py-3 mb-4"
-              />
-              <button
-                onClick={submitPaymentRequest}
-                disabled={loading || submitted}
-                className="w-full bg-green-600 hover:bg-green-700 disabled:opacity-60 text-white font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
-              >
-                <Send size={18} />
-                {loading ? "Submitting..." : submitted ? "Request submitted" : "Submit for admin approval"}
-              </button>
-            </div>
-          )}
-
-          <div className="mt-6 p-4 bg-green-50 rounded-lg text-center">
-            <MessageCircle className="text-green-600 mx-auto mb-3" size={32} />
-            <h3 className="font-semibold text-gray-800 mb-2">Payment Done?</h3>
-            <p className="text-sm text-gray-600 mb-4">
-              Payment ke baad screenshot WhatsApp karein. Admin approval ke baad coins balance me reflect honge.
-            </p>
-            <div className="bg-white p-3 rounded-lg">
-              <p className="font-mono text-lg font-semibold text-green-600">+91 {WHATSAPP}</p>
-              <p className="text-xs text-gray-500">WhatsApp Number</p>
-            </div>
-          </div>
-
           <button
-            onClick={() => navigate("/dashboard")}
-            className="w-full bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-4 rounded-lg mt-5"
+            onClick={startPayment}
+            disabled={loading}
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 font-bold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-gray-400"
           >
-            Go to Home
+            <ShieldCheck size={20} />
+            {loading ? "Opening Razorpay..." : "Pay Securely"}
           </button>
 
-          <div className="mt-4 p-3 bg-blue-50 rounded-lg flex items-start gap-2">
-            <AlertCircle className="text-blue-600 shrink-0" size={16} />
+          <div className="mt-4 flex items-start gap-2 rounded-lg bg-blue-50 p-3">
+            <AlertCircle className="shrink-0 text-blue-600" size={16} />
             <p className="text-sm text-blue-700">
-              Balance sirf admin approval ke baad update hoga. Duplicate request avoid karne ke liye payment details carefully submit karein.
+              Payment success ke baad coins automatic wallet me add honge. Manual UTR approval required nahi hai.
             </p>
           </div>
         </div>
