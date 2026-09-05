@@ -53,14 +53,14 @@ const Transactions = () => {
 
         <div className="mb-10">
           <h1 className="text-4xl font-bold text-gray-900">Transaction Management</h1>
-          <p className="text-lg text-gray-600">Approve coin purchases and view all transaction records</p>
+              <p className="text-lg text-gray-600">Approve Atvan Coin purchases and view all transaction records</p>
         </div>
 
         <div className="bg-white rounded-xl shadow-md p-6 mb-10">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Coin Purchase Requests</h2>
-              <p className="text-sm text-gray-500">₹100 = 10 coins, daily growth = amount x 5% / 365</p>
+              <h2 className="text-2xl font-bold text-gray-900">Atvan Coin Purchase Requests</h2>
+              <p className="text-sm text-gray-500">₹100 = Atvan Coin 10, daily growth = amount x 5% / 365</p>
             </div>
             <button onClick={fetchTransactions} className="px-4 py-2 rounded-lg bg-emerald-600 text-white font-semibold">Refresh</button>
           </div>
@@ -70,7 +70,7 @@ const Transactions = () => {
                 <tr className="bg-gray-50 text-left">
                   <th className="px-4 py-3 font-medium text-gray-700">User</th>
                   <th className="px-4 py-3 font-medium text-gray-700">Amount</th>
-                  <th className="px-4 py-3 font-medium text-gray-700">Coins</th>
+                  <th className="px-4 py-3 font-medium text-gray-700">Atvan Coin</th>
                   <th className="px-4 py-3 font-medium text-gray-700">Daily Growth</th>
                   <th className="px-4 py-3 font-medium text-gray-700">Payment Ref</th>
                   <th className="px-4 py-3 font-medium text-gray-700">Status</th>

@@ -93,8 +93,8 @@ const AdminDashboard = () => {
         <div className="bg-white rounded-xl p-6 border-l-4 border-yellow-500 shadow-lg">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 font-medium">Total Coins</p>
-              <p className="text-3xl font-bold text-yellow-600">{stats.totalCoins || 0}</p>
+              <p className="text-sm text-gray-600 font-medium">Total Atvan Coin</p>
+              <p className="text-3xl font-bold text-yellow-600">Atvan Coin {stats.totalCoins || 0}</p>
             </div>
             <DollarSign size={32} className="text-yellow-500" />
           </div>

@@ -76,7 +76,7 @@ const handleTransferCoins = async () => {
   }
 
   if (parseInt(transferData.amount) > user.totalCoins) {
-    alert("Insufficient Coins");
+    alert("Insufficient Atvan Coin");
     return;
   }
 
@@ -95,7 +95,7 @@ const handleTransferCoins = async () => {
 
     setShowTransferModal(false);
     setTransferData({ recipientId: "", amount: "" });
-    alert("Coins sent successfully!");
+    alert("Atvan Coin sent successfully!");
     fetchDashboardData();
   } catch {
     alert("Transfer failed");
@@ -164,7 +164,7 @@ return (
     {/* Stats */}
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
       <div className="bg-white rounded-xl shadow-lg p-7 border-l-4 border-emerald-600">
-        <p className="text-sm text-gray-600 font-medium">Total Wallet Coins</p>
+            <p className="text-sm text-gray-600 font-medium">Total Wallet Atvan Coin</p>
         <div className="flex items-center justify-between mt-2">
           <h2 className="text-4xl font-extrabold text-emerald-600">{user?.totalCoins}</h2>
     <div className="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center">
@@ -207,7 +207,7 @@ return (
           className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 rounded-xl text-lg flex items-center justify-center gap-3"
         >
           <Send size={22} />
-          Send Coins
+          Send Atvan Coin
         </button>
 
         <button
@@ -215,7 +215,7 @@ return (
           className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-4 rounded-xl text-lg flex items-center justify-center gap-3"
         >
           <Download size={22} />
-          Receive Coins
+          Receive Atvan Coin
         </button>
 
         <button
@@ -232,7 +232,7 @@ return (
     {showTransferModal && (
       <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center p-4 z-50">
         <div className="bg-white rounded-xl shadow-xl p-6 w-full max-w-sm">
-          <h2 className="text-xl font-bold mb-4">Send Coins</h2>
+          <h2 className="text-xl font-bold mb-4">Send Atvan Coin</h2>
 
           <div className="space-y-4">
             <input
@@ -260,7 +260,7 @@ return (
             onClick={handleTransferCoins}
             className="w-full mt-5 bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold"
           >
-            {transferLoading ? "Sending..." : "Send Coins"}
+            {transferLoading ? "Sending..." : "Send Atvan Coin"}
           </button>
 
           <button
@@ -290,9 +290,9 @@ return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4">
           <div className="text-center">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Receive Gold Coins</h2>
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">Receive Atvan Coin</h2>
             <p className="text-gray-600 mb-6">
-              Show this QR code to receive payments and get gold coins credited to your wallet.
+              Show this QR code to receive payments and get Atvan Coin credited to your wallet.
             </p>
 
             {/* User QR Code */}

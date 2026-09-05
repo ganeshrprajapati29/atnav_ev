@@ -165,7 +165,7 @@ const Users = () => {
                 <th className="px-4 py-3 font-medium text-gray-700">Personal</th>
                 <th className="px-4 py-3 font-medium text-gray-700">Contact</th>
                 <th className="px-4 py-3 font-medium text-gray-700">Documents</th>
-                <th className="px-4 py-3 font-medium text-gray-700">Coins</th>
+                <th className="px-4 py-3 font-medium text-gray-700">Atvan Coin</th>
                 <th className="px-4 py-3 font-medium text-gray-700">Payment</th>
                 <th className="px-4 py-3 font-medium text-gray-700">Status</th>
                 <th className="px-4 py-3 font-medium text-gray-700">Actions</th>
@@ -223,7 +223,7 @@ const Users = () => {
 
                   {/* COINS */}
                   <td className="px-4 py-3">
-                    <span className="font-bold">{user.totalCoins}</span>
+                    <span className="font-bold">Atvan Coin {user.totalCoins}</span>
                   </td>
 
                   {/* PAYMENT */}
@@ -437,7 +437,7 @@ const Users = () => {
                   </div>
 
                   <div>
-                    <label className="font-medium text-gray-700">Total Wallet Coins</label>
+                    <label className="font-medium text-gray-700">Total Wallet Atvan Coin</label>
                     <input
                       type="number"
                       name="totalCoins"

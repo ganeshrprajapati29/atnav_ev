@@ -79,12 +79,12 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-6">
             {user ? (
               <>
-                {/* Coins */}
+                {/* Atvan Coin */}
                 <div className="flex items-center gap-3 bg-emerald-50 px-4 py-2 rounded-xl shadow-sm border border-emerald-200">
                   <span className="text-2xl">💰</span>
                   <div>
-                    <p className="text-xs text-gray-500 font-medium">Coins</p>
-                    <p className="text-xl font-bold text-emerald-600">{user.totalCoins}</p>
+                    <p className="text-xs text-gray-500 font-medium">Atvan Coin</p>
+                    <p className="text-xl font-bold text-emerald-600">Atvan Coin {user.totalCoins}</p>
                   </div>
                 </div>
 

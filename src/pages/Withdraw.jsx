@@ -72,12 +72,12 @@ const Withdraw = () => {
     }
 
     if (amount < 500) {
-      setErrorMessage('Minimum withdrawal amount is 500 coins');
+      setErrorMessage('Minimum withdrawal amount is 500 Atvan Coin');
       return;
     }
 
     if (amount > (user?.totalCoins || 0)) {
-      setErrorMessage('Insufficient coins for this withdrawal');
+      setErrorMessage('Insufficient Atvan Coin for this withdrawal');
       return;
     }
 
@@ -87,7 +87,7 @@ const Withdraw = () => {
     }
 
     const confirmWithdraw = window.confirm(
-      `Withdraw ${amount} coins to ${bankDetails.bankName}?\nAccount: ****${bankDetails.accountNumber.slice(-4)}`
+      `Withdraw Atvan Coin ${amount} to ${bankDetails.bankName}?\nAccount: ****${bankDetails.accountNumber.slice(-4)}`
     );
 
     if (!confirmWithdraw) return;
@@ -142,7 +142,7 @@ const Withdraw = () => {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">Withdraw Funds</h1>
-          <p className="text-lg text-gray-600">Convert your coins to cash and transfer to your bank account</p>
+          <p className="text-lg text-gray-600">Convert your Atvan Coin to cash and transfer to your bank account</p>
         </div>
 
         {/* Success & Error Messages */}
@@ -176,9 +176,9 @@ const Withdraw = () => {
                 💰
               </div>
               <div>
-                <p className="text-sm opacity-90 font-medium">Available Coins</p>
-                <p className="text-4xl font-bold">{user?.totalCoins || 0}</p>
-                <p className="text-sm opacity-80 mt-1">Minimum withdrawal: 500 coins</p>
+                <p className="text-sm opacity-90 font-medium">Available Atvan Coin</p>
+                <p className="text-4xl font-bold">Atvan Coin {user?.totalCoins || 0}</p>
+                <p className="text-sm opacity-80 mt-1">Minimum withdrawal: 500 Atvan Coin</p>
               </div>
             </div>
             <DollarSign size={40} className="opacity-30" />
@@ -341,7 +341,7 @@ const Withdraw = () => {
             <form onSubmit={handleWithdrawalSubmit} className="space-y-4">
               <div>
                 <label className="block text-sm font-semibold text-gray-800 mb-2">
-                  Withdrawal Amount (Coins)
+                  Withdrawal Amount (Atvan Coin)
                 </label>
                 <div className="relative">
                   <DollarSign className="absolute left-3 top-3 text-emerald-600" size={20} />
@@ -352,20 +352,20 @@ const Withdraw = () => {
                     onChange={(e) => setWithdrawalAmount(e.target.value)}
                     min="500"
                     max={user?.totalCoins || 0}
-                    placeholder="Minimum 500 coins"
+                    placeholder="Minimum 500 Atvan Coin"
                     required
                   />
                 </div>
                 <div className="mt-3 space-y-1">
                   <p className="text-sm text-gray-600">
-                    <span className="font-semibold">Available:</span> {user?.totalCoins || 0} coins
+                    <span className="font-semibold">Available:</span> Atvan Coin {user?.totalCoins || 0}
                   </p>
                   <p className="text-sm text-gray-600">
-                    <span className="font-semibold">Minimum:</span> 500 coins
+                    <span className="font-semibold">Minimum:</span> 500 Atvan Coin
                   </p>
                   {withdrawalAmount && (
                     <p className="text-sm text-emerald-600 font-semibold">
-                      Remaining after withdrawal: {(user?.totalCoins || 0) - parseInt(withdrawalAmount)} coins
+                      Remaining after withdrawal: Atvan Coin {(user?.totalCoins || 0) - parseInt(withdrawalAmount)}
                     </p>
                   )}
                 </div>

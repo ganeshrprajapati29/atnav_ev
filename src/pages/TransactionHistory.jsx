@@ -83,7 +83,7 @@ const TransactionHistory = () => {
             </button>
             <div>
               <h1 className="text-3xl font-bold text-emerald-600">Transaction History</h1>
-              <p className="text-gray-600">View your coin transfer history</p>
+              <p className="text-gray-600">View your Atvan Coin transfer history</p>
             </div>
           </div>
         </div>
@@ -94,7 +94,7 @@ const TransactionHistory = () => {
             <div className="text-center py-12">
               <HiClock size={48} className="text-gray-400 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-600 mb-2">No Transactions Yet</h3>
-              <p className="text-gray-500">Your coin transfer history will appear here.</p>
+              <p className="text-gray-500">Your Atvan Coin transfer history will appear here.</p>
             </div>
           ) : (
             <div className="divide-y divide-gray-100">
@@ -139,7 +139,7 @@ const TransactionHistory = () => {
                       <div className={`text-xl font-bold ${
                         transaction.type === 'sent' ? 'text-red-600' : 'text-green-600'
                       }`}>
-                        {transaction.type === 'sent' ? '-' : '+'}{transaction.amount} Coins
+                        {transaction.type === 'sent' ? '-' : '+'}Atvan Coin {transaction.amount}
                       </div>
                       <div className={`text-sm ${
                         transaction.type === 'sent' ? 'text-red-500' : 'text-green-500'

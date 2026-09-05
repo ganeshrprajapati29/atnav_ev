@@ -134,13 +134,13 @@ const UserDetails = () => {
                 </div>
               </div>
 
-              {/* Coins & Tier */}
+              {/* Atvan Coin & Tier */}
               <div className="border-t pt-4 mb-4">
                 <h4 className="text-sm font-semibold text-gray-800 mb-2">Rewards</h4>
                 <div className="space-y-1">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm text-gray-700">Total Coins:</span>
-                    <span className="text-lg font-bold text-yellow-600">{user.totalCoins}</span>
+                    <span className="text-sm text-gray-700">Total Atvan Coin:</span>
+                    <span className="text-lg font-bold text-yellow-600">Atvan Coin {user.totalCoins}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-gray-700">Total Gold:</span>
@@ -414,7 +414,7 @@ const UserDetails = () => {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-gray-700 font-medium">Total Coins</label>
+                    <label className="text-gray-700 font-medium">Total Atvan Coin</label>
                     <input
                       type="number"
                       name="totalCoins"

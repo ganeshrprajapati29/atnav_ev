@@ -323,8 +323,8 @@ return ( <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-whit
           </div>
 
           <div className="p-4 bg-emerald-50 rounded-lg">
-            <label className="text-sm text-gray-600">Total Coins</label>
-            <p className="text-2xl font-bold text-emerald-600">{profileData.totalCoins}</p>
+            <label className="text-sm text-gray-600">Total Atvan Coin</label>
+            <p className="text-2xl font-bold text-emerald-600">Atvan Coin {profileData.totalCoins}</p>
           </div>
 
           <div className="p-4 bg-gray-50 rounded-lg">

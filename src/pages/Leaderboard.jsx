@@ -101,7 +101,7 @@ const Leaderboard = () => {
                   </span>
                 </div>
                 <p className="text-3xl font-bold text-gray-700">{leaderboard[1]?.totalCoins || 0}</p>
-                <p className="text-sm text-gray-500">Coins</p>
+                <p className="text-sm text-gray-500">Atvan Coin</p>
               </div>
             </div>
 
@@ -122,7 +122,7 @@ const Leaderboard = () => {
                   </span>
                 </div>
                 <p className="text-4xl font-bold">{leaderboard[0]?.totalCoins || 0}</p>
-                <p className="text-sm opacity-90">Coins</p>
+                <p className="text-sm opacity-90">Atvan Coin</p>
               </div>
             </div>
 
@@ -140,7 +140,7 @@ const Leaderboard = () => {
                   </span>
                 </div>
                 <p className="text-3xl font-bold text-gray-700">{leaderboard[2]?.totalCoins || 0}</p>
-                <p className="text-sm text-gray-500">Coins</p>
+                <p className="text-sm text-gray-500">Atvan Coin</p>
               </div>
             </div>
           </div>
@@ -159,7 +159,7 @@ const Leaderboard = () => {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rank</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tier</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Wallet Coins</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Wallet Atvan Coin</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Login Count</th>
                 </tr>
               </thead>
@@ -211,7 +211,7 @@ const Leaderboard = () => {
             <div className="px-6 py-12 text-center">
               <Trophy className="mx-auto h-12 w-12 text-gray-400 mb-4" />
               <h3 className="text-sm font-medium text-gray-900 mb-2">No users yet</h3>
-              <p className="text-sm text-gray-500">Start earning coins to appear on the leaderboard!</p>
+              <p className="text-sm text-gray-500">Start earning Atvan Coin to appear on the leaderboard!</p>
             </div>
           )}
         </div>
@@ -220,7 +220,7 @@ const Leaderboard = () => {
         <div className="mt-10 bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-xl p-8 text-center text-white">
           <h2 className="text-2xl font-bold mb-4">Ready to Climb the Ranks?</h2>
           <p className="text-lg mb-6 opacity-90">
-            Login daily, complete services, and earn more coins to reach the top!
+            Login daily, complete services, and earn more Atvan Coin to reach the top!
           </p>
           <button
             onClick={() => window.location.href = '/dashboard'}

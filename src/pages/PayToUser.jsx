@@ -50,7 +50,7 @@ const PayToUser = ({ isModal = false, onClose }) => {
     }
 
     if (parseFloat(amount) > user.totalCoins) {
-      toast.error('Insufficient coins');
+      toast.error('Insufficient Atvan Coin');
       return;
     }
 
@@ -80,7 +80,7 @@ const PayToUser = ({ isModal = false, onClose }) => {
       {!isModal && (
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-emerald-600 mb-2">Pay to User</h1>
-          <p className="text-gray-600">Send coins to another user</p>
+          <p className="text-gray-600">Send Atvan Coin to another user</p>
         </div>
       )}
 
@@ -124,7 +124,7 @@ const PayToUser = ({ isModal = false, onClose }) => {
               <div className="space-y-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Amount (Coins)
+                    Amount (Atvan Coin)
                   </label>
                   <div className="relative">
                     <HiCurrencyDollar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -139,7 +139,7 @@ const PayToUser = ({ isModal = false, onClose }) => {
                     />
                   </div>
                   <p className="text-sm text-gray-500 mt-1">
-                    Your balance: {user.totalCoins} coins
+                    Your balance: Atvan Coin {user.totalCoins}
                   </p>
                 </div>
 
@@ -162,14 +162,14 @@ const PayToUser = ({ isModal = false, onClose }) => {
                   className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-400 text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
                   <HiCreditCard size={20} />
-                  Pay {amount || 0} Coins
+                  Pay Atvan Coin {amount || 0}
                 </button>
               </div>
 
               {/* Warning */}
               <div className="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
                 <p className="text-sm text-yellow-800">
-                  <strong>Note:</strong> This payment is irreversible. Make sure you want to send coins to this user.
+                  <strong>Note:</strong> This payment is irreversible. Make sure you want to send Atvan Coin to this user.
                 </p>
               </div>
             </>
@@ -193,7 +193,7 @@ const PayToUser = ({ isModal = false, onClose }) => {
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Amount:</span>
-                <span className="font-medium">{amount} Coins</span>
+                <span className="font-medium">Atvan Coin {amount}</span>
               </div>
               {note && (
                 <div className="flex justify-between">
@@ -230,7 +230,7 @@ const PayToUser = ({ isModal = false, onClose }) => {
                 <HiCheck size={32} className="text-green-600" />
               </div>
               <h2 className="text-xl font-bold text-gray-800">Payment Successful!</h2>
-              <p className="text-gray-600 mt-2">Coins have been sent successfully.</p>
+              <p className="text-gray-600 mt-2">Atvan Coin has been sent successfully.</p>
             </div>
             <div className="bg-gray-50 rounded-lg p-4 mb-6">
               <div className="text-sm text-gray-600">Transaction ID</div>

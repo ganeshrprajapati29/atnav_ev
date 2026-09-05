@@ -33,7 +33,7 @@ const LoginRewardPopup = ({ coins, onClose }) => {
 
         {/* Message */}
         <p className="text-gray-600 mb-6">
-          You earned <span className="font-bold text-emerald-600 text-lg">{coins} coins</span> for logging in today!
+          You earned <span className="font-bold text-emerald-600 text-lg">Atvan Coin {coins}</span> for logging in today!
         </p>
 
         {/* Coins display */}

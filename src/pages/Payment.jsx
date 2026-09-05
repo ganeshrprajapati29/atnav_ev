@@ -28,7 +28,7 @@ const Payment = () => {
 
   const startPayment = async () => {
     if (paymentCompleted) {
-      alert("Aapka coin purchase already completed hai.");
+      alert("Aapka Atvan Coin purchase already completed hai.");
       return;
     }
 
@@ -46,7 +46,7 @@ const Payment = () => {
         amount: data.order.amount,
         currency: data.order.currency,
         name: "ATVAN Coin",
-        description: `${coins} ATVAN coins`,
+        description: `${coins} Atvan Coin`,
         order_id: data.order.id,
         prefill: {
           name: user?.name || "",
@@ -95,9 +95,9 @@ const Payment = () => {
         <div className="w-full max-w-md rounded-2xl bg-white p-8 text-center shadow-xl">
           <CheckCircle className="mx-auto mb-4 text-emerald-600" size={54} />
           <h1 className="text-2xl font-bold text-gray-900">Payment Successful</h1>
-          <p className="mt-2 text-gray-600">Coins automatically wallet me credit ho gaye hain.</p>
+          <p className="mt-2 text-gray-600">Atvan Coin automatically wallet me credit ho gaya hai.</p>
           <div className="mt-5 rounded-lg bg-emerald-50 p-4 text-sm text-emerald-800">
-            <p><strong>Coins:</strong> {success.purchase?.baseCoins || coins}</p>
+            <p><strong>Atvan Coin:</strong> {success.purchase?.baseCoins || coins}</p>
             <p><strong>Payment ID:</strong> {success.purchase?.razorpayPaymentId || "-"}</p>
           </div>
           <button
@@ -118,7 +118,7 @@ const Payment = () => {
           <div className="inline-flex h-16 w-16 items-center justify-center rounded-lg bg-emerald-100 shadow-lg">
             <CreditCard className="text-emerald-600" size={32} />
           </div>
-          <h1 className="mt-4 text-3xl font-bold text-emerald-700">Buy Coins</h1>
+          <h1 className="mt-4 text-3xl font-bold text-emerald-700">Buy Atvan Coin</h1>
           <p className="text-gray-600">Secure automatic payment by Razorpay</p>
         </div>
 
@@ -132,8 +132,8 @@ const Payment = () => {
 
           <div className="mb-6 rounded-lg bg-gray-50 p-4 text-center">
             <p className="text-3xl font-bold text-gray-900">Rs.{amount}</p>
-            <p className="mt-1 text-sm text-gray-600">{coins} coins instant credit after payment</p>
-            <p className="text-xs text-gray-500">Daily growth: {dailyGrowth} coins</p>
+            <p className="mt-1 text-sm text-gray-600">Atvan Coin {coins} instant credit after payment</p>
+            <p className="text-xs text-gray-500">Daily growth: Atvan Coin {dailyGrowth}</p>
           </div>
 
           <button
@@ -149,8 +149,8 @@ const Payment = () => {
             <AlertCircle className="shrink-0 text-blue-600" size={16} />
             <p className="text-sm text-blue-700">
               {paymentCompleted
-                ? "Aapka Rs.100 coin purchase complete hai. Buy option ab disabled rahega."
-                : "Payment success ke baad coins automatic wallet me add honge. Manual UTR approval required nahi hai."}
+                ? "Aapka Rs.100 Atvan Coin purchase complete hai. Buy option ab disabled rahega."
+                : "Payment success ke baad Atvan Coin automatic wallet me add hoga. Manual UTR approval required nahi hai."}
             </p>
           </div>
         </div>

@@ -65,7 +65,7 @@ const RewardsAdmin = () => {
           <div className="bg-white rounded-xl shadow-md border-l-4 border-yellow-500 p-6 hover:shadow-lg transition">
             <div className="flex justify-between items-center">
               <div>
-                <p className="text-sm text-gray-600 font-medium">Total Wallet Coins Earned</p>
+                <p className="text-sm text-gray-600 font-medium">Total Wallet Atvan Coin Earned</p>
                 <p className="text-4xl font-bold text-yellow-500 mt-3">{stats.totalCoinsEarned || 0}</p>
               </div>
               <div className="text-3xl">💰</div>
@@ -158,7 +158,7 @@ const RewardsAdmin = () => {
                   <div className="w-4 h-4 bg-gray-500 rounded mr-2"></div>
                   Silver
                 </span>
-                <span className="font-semibold">{stats.avgSilverReward || 0} coins</span>
+                <span className="font-semibold">Atvan Coin {stats.avgSilverReward || 0}</span>
               </div>
 
               <div className="flex justify-between items-center">
@@ -166,7 +166,7 @@ const RewardsAdmin = () => {
                   <div className="w-4 h-4 bg-yellow-500 rounded mr-2"></div>
                   Gold
                 </span>
-                <span className="font-semibold">{stats.avgGoldReward || 0} coins</span>
+                <span className="font-semibold">Atvan Coin {stats.avgGoldReward || 0}</span>
               </div>
 
               <div className="flex justify-between items-center">
@@ -174,7 +174,7 @@ const RewardsAdmin = () => {
                   <div className="w-4 h-4 bg-purple-500 rounded mr-2"></div>
                   Platinum
                 </span>
-                <span className="font-semibold">{stats.avgPlatinumReward || 0} coins</span>
+                <span className="font-semibold">Atvan Coin {stats.avgPlatinumReward || 0}</span>
               </div>
             </div>
           </div>
@@ -192,7 +192,7 @@ const RewardsAdmin = () => {
                     <th className="px-4 py-3 text-left font-medium text-gray-700">User</th>
                     <th className="px-4 py-3 text-left font-medium text-gray-700">Reason</th>
                     <th className="px-4 py-3 text-left font-medium text-gray-700">Tier</th>
-                    <th className="px-4 py-3 text-left font-medium text-gray-700">Coins</th>
+                    <th className="px-4 py-3 text-left font-medium text-gray-700">Atvan Coin</th>
                     <th className="px-4 py-3 text-left font-medium text-gray-700">Date</th>
                   </tr>
                 </thead>

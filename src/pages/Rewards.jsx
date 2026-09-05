@@ -72,7 +72,7 @@ const Rewards = () => {
           <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow border-l-4 border-emerald-600 p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600 font-medium">Total Wallet Coins Earned</p>
+                <p className="text-sm text-gray-600 font-medium">Total Wallet Atvan Coin Earned</p>
                 <p className="text-4xl font-bold text-emerald-600 mt-3">{user?.totalCoins || 0}</p>
                 <div className="flex items-center gap-1 mt-2 text-emerald-600 text-sm">
                   <TrendingUp size={16} />
@@ -225,7 +225,7 @@ const Rewards = () => {
                     <th className="px-6 py-4 text-left font-semibold text-gray-700">Date</th>
                     <th className="px-6 py-4 text-left font-semibold text-gray-700">Reason</th>
                     <th className="px-6 py-4 text-left font-semibold text-gray-700">Tier</th>
-                    <th className="px-6 py-4 text-right font-semibold text-gray-700">Coins</th>
+                    <th className="px-6 py-4 text-right font-semibold text-gray-700">Atvan Coin</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -275,7 +275,7 @@ const Rewards = () => {
               <AlertCircle size={48} className="mx-auto text-gray-400 mb-4" />
               <p className="text-gray-600 text-lg font-medium">
                 {rewards.length === 0 
-                  ? 'No rewards earned yet. Login daily to earn coins!' 
+                  ? 'No rewards earned yet. Login daily to earn Atvan Coin!'
                   : 'No rewards found with selected filter.'}
               </p>
               {rewards.length === 0 && (
