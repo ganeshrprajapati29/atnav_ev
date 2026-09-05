@@ -24,8 +24,14 @@ const Payment = () => {
   const amount = parseInt(searchParams.get("amount"), 10) || 100;
   const coins = amount / 10;
   const dailyGrowth = ((amount * 0.05) / 365).toFixed(4);
+  const paymentCompleted = user?.serviceActivated || user?.paymentStatus === "completed";
 
   const startPayment = async () => {
+    if (paymentCompleted) {
+      alert("Aapka coin purchase already completed hai.");
+      return;
+    }
+
     try {
       setLoading(true);
       const ready = await loadRazorpay();
@@ -132,17 +138,19 @@ const Payment = () => {
 
           <button
             onClick={startPayment}
-            disabled={loading}
+            disabled={loading || paymentCompleted}
             className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 px-4 py-3 font-bold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-gray-400"
           >
             <ShieldCheck size={20} />
-            {loading ? "Opening Razorpay..." : "Pay Securely"}
+            {paymentCompleted ? "Payment Completed" : loading ? "Opening Razorpay..." : "Pay Securely"}
           </button>
 
           <div className="mt-4 flex items-start gap-2 rounded-lg bg-blue-50 p-3">
             <AlertCircle className="shrink-0 text-blue-600" size={16} />
             <p className="text-sm text-blue-700">
-              Payment success ke baad coins automatic wallet me add honge. Manual UTR approval required nahi hai.
+              {paymentCompleted
+                ? "Aapka Rs.100 coin purchase complete hai. Buy option ab disabled rahega."
+                : "Payment success ke baad coins automatic wallet me add honge. Manual UTR approval required nahi hai."}
             </p>
           </div>
         </div>
